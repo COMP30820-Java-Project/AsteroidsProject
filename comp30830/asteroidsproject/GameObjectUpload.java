@@ -1,3 +1,5 @@
+package comp30830.asteroidsproject;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
@@ -49,7 +51,7 @@ abstract public class GameObjectUpload {
         );
     }
 
-    public void destory(Group root){
+    public void destroy(Group root){
 //        When a total object crashes or dies remove the object from the component and the main function will not print it
         root.getChildren().remove(gameRoot);
         alive = false;
@@ -58,7 +60,7 @@ abstract public class GameObjectUpload {
 //    Create this object according to your needs(Mark the outer boundary of this object)
     abstract Shape getShapeOfObject();
 
-    public boolean strike(GameObject other){
+    public boolean strike(GameObjectUpload other){
 //       /*
 //       Determine when to collide
 //       */
