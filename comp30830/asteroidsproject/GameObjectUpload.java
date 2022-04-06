@@ -37,6 +37,21 @@ abstract public class GameObjectUpload {
         alive=true;
     }
 
+    public Point2D getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point2D position) {
+        this.position = position;
+    }
+
+    public Point2D getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Point2D velocity) {
+        this.velocity = velocity;
+    }
 //    Position update function
     public void update(double deltaTime){
         position = position.add(velocity.multiply(deltaTime));
@@ -73,5 +88,7 @@ abstract public class GameObjectUpload {
         double y = Math.sin(angle)*mag;
         return new Point2D(x,y);
     }
+
+
 
 }
