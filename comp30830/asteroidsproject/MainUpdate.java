@@ -57,6 +57,7 @@ public class MainUpdate extends Application {
             public void handle(KeyEvent event) {
 //                Gets the current key pressed to avoid sticking into the set
                 keysDown.add(event.getCode());
+                System.out.println(key(KeyCode.SPACE));
             }
         });
 
@@ -83,11 +84,14 @@ public class MainUpdate extends Application {
                 oldTime = nanoTime;
 
                 /*
-                 * GAMP LOOP
+                 * GAME LOOP
                  * */
 //                Angle change can be obtained by user button
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
                 ship.update(delta,rot,key(KeyCode.UP));
+                if (key(KeyCode.SPACE) == 1)
+                    ship.fireBullet();
+
             }
         };
 

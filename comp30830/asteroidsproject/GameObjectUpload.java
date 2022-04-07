@@ -54,7 +54,24 @@ abstract public class GameObjectUpload {
     public void setVelocity(Point2D velocity) {
         this.velocity = velocity;
     }
-//    Position update function
+
+    public double getRadian() {
+        return radian;
+    }
+
+    public void setRadian(double radian) {
+        this.radian = radian;
+    }
+
+    public double getAngularAcc() {
+        return AngularAcc;
+    }
+
+    public void setAngularAcc(double angularAcc) {
+        AngularAcc = angularAcc;
+    }
+
+    //    Position update function
     public void update(double deltaTime){
         position = position.add(velocity.multiply(deltaTime));
         radian = (radian+AngularAcc*deltaTime);

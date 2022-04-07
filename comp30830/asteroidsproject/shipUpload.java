@@ -71,8 +71,7 @@ public class shipUpload extends GameObjectUpload {
         return pg;
     }
 
-    public void fireBullet(Group root,Point2D p0,Point2D v0,double rad,double accrad) {
-        PlayerBullet bullet = new PlayerBullet(root, p0, v0, rad, accrad);
+    public void fireBullet() {
 
     }
 }

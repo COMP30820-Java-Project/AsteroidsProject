@@ -2,6 +2,8 @@ package comp30830.asteroidsproject;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Shape;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -9,6 +11,7 @@ import java.util.TimerTask;
 public abstract class Bullets extends GameObjectUpload{
 
     protected Timer lifespan;
+    Polyline line;
 
     public Bullets(Group root,
                    Point2D p0,
@@ -48,6 +51,11 @@ class PlayerBullet extends Bullets {
                 lifespanEnd();
             }
         }, 1000);           // Hard coded player bullets to one second for now
+
+        line = new Polyline(0.2, 0.2);
+        gameTransform.getChildren().add(line);
+        line.setStroke(Color.BLUE);
+        line.setStrokeWidth(0.1);
     }
 }
 
