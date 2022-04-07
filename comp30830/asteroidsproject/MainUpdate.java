@@ -1,3 +1,5 @@
+package comp30830.asteroidsproject;
+
 //import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
