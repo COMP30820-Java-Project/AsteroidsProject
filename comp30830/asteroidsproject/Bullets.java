@@ -14,8 +14,7 @@ public abstract class Bullets extends GameObjectUpload{
                    Point2D p0,
                    Point2D v0,
                    double rad,
-                   double accrad,
-                   Timer lifespan) {
+                   double accrad) {
         super(root, p0, v0, rad, accrad);
         this.lifespan = new Timer();
     }
@@ -39,9 +38,9 @@ class PlayerBullet extends Bullets {
                         Point2D p0,
                         Point2D v0,
                         double rad,
-                        double accrad,
-                        Timer lifespan) {
-        super(root, p0, v0, rad, accrad, lifespan);
+                        double accrad
+                        ) {
+        super(root, p0, v0, rad, accrad);
 
         this.lifespan.schedule(new TimerTask() {
             @Override
@@ -59,9 +58,8 @@ class AlienBullet extends Bullets {
                        Point2D p0,
                        Point2D v0,
                        double rad,
-                       double accrad,
-                       Timer lifespan) {
-        super(root, p0, v0, rad, accrad, lifespan);
+                       double accrad) {
+        super(root, p0, v0, rad, accrad);
 
         this.lifespan.schedule(new TimerTask() {
             @Override

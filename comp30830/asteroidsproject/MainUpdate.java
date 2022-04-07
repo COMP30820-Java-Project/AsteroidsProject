@@ -88,7 +88,6 @@ public class MainUpdate extends Application {
 //                Angle change can be obtained by user button
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
                 ship.update(delta,rot,key(KeyCode.UP));
-
             }
         };
 
