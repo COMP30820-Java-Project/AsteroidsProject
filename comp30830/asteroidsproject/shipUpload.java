@@ -1,9 +1,13 @@
+package comp30830.asteroidsproject;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
+
+import java.util.Timer;
 
 public class shipUpload extends GameObjectUpload {
 //    acceleration
@@ -65,5 +69,10 @@ public class shipUpload extends GameObjectUpload {
     }
     public Shape getShapeOfObject() {
         return pg;
+    }
+
+    public void fireBullet(Group root,Point2D p0,Point2D v0,double rad,double accrad) {
+        PlayerBullet bullet = new PlayerBullet(root, p0, v0, rad, accrad);
+
     }
 }

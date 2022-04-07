@@ -1,3 +1,5 @@
+package comp30830.asteroidsproject;
+
 //import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -86,7 +88,6 @@ public class MainUpdate extends Application {
 //                Angle change can be obtained by user button
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
                 ship.update(delta,rot,key(KeyCode.UP));
-
             }
         };
 
