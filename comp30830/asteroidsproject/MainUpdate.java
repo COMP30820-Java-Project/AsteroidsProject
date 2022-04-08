@@ -1,5 +1,3 @@
-package comp30830.asteroidsproject;
-
 //import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -11,14 +9,15 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class MainUpdate extends Application {
     //Setting window size
     Point2D size = new Point2D(800,600);
+    Rectangle bounds = new Rectangle(800,600);
     //Avoid bonding. Press a key and only lift it to get the next key
     Set<KeyCode> keysDown = new HashSet<>();
 
@@ -42,8 +41,25 @@ public class MainUpdate extends Application {
 
 //        Store all of the ship's components
         Group gGame = new Group();
+
+        /*
+        * Adding bullets and asteroids to components
+        * */
+        Group gAsteroids = new Group();
+        Group gBullets = new Group();
+        gGame.getChildren().addAll(gAsteroids,gBullets);
+
+
 ////        Create a fly spawn and specify a starting location
         shipUpload ship = new shipUpload(gGame,size.multiply(0.5));
+
+/*
+*     Load bullets and asteroids in a LinkedList here
+* */
+        List<Asteroid> asteroids = new LinkedList<>();
+        List<Bullet> bullets = new LinkedList<>();
+
+
 //        Get all the components
         gRoot.getChildren().addAll(gGame);
 
@@ -74,6 +90,10 @@ public class MainUpdate extends Application {
         AnimationTimer loop = new AnimationTimer(){
             double oldTime = -1;
 
+            int asteroidCount = 10;
+            double bulletWaitTime = 0.3;
+            double bulletTimer = 0;
+
             @Override
             public void handle(long nanoTime) {
                 if(oldTime<0){
@@ -81,13 +101,54 @@ public class MainUpdate extends Application {
                 }
                 double delta = (nanoTime-oldTime)/1e9;
                 oldTime = nanoTime;
-
                 /*
                  * GAMP LOOP
                  * */
 //                Angle change can be obtained by user button
+                /*
+                * The specific control logic is implemented here
+                * */
+                for (Asteroid asteroid : asteroids) {
+                    for (Bullet bullet : bullets) {
+                        if(asteroid.strike(bullet)){
+                            asteroid.destory(gAsteroids);
+                            bullet.destory(gBullets);
+                            break;
+                        }
+                    }
+//                    if(!asteroid.alive){
+//                        continue;
+//                    }
+                    if(asteroid.leavingBounds(bounds)){
+                        asteroid.destory(gAsteroids);
+                    }else{
+                        asteroid.update(delta);
+                    }
+
+                }
+
+                for (Bullet bullet : bullets) {
+                    if(bullet.leavingBounds(bounds)){
+                        bullet.destory(gBullets);
+                    }else{
+                        bullet.update(delta);
+                    }
+                }
+                asteroids.removeIf(asteroid -> !asteroid.alive);
+                bullets.removeIf(bullet -> !bullet.alive);
+                while(asteroids.size()<asteroidCount){
+                    asteroids.add(Asteroid.make(gAsteroids,size));
+                }
+                if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
+                    Bullet b = new Bullet(gBullets,ship.position,ship.velocity,ship.radian);
+                    bullets.add(b);
+                    bulletTimer = bulletWaitTime;
+                }
+                bulletTimer -= delta;
+
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
                 ship.update(delta,rot,key(KeyCode.UP));
+
             }
         };
 
