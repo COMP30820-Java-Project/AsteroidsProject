@@ -1,3 +1,5 @@
+package comp30830.asteroidsproject;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.shape.Rectangle;
@@ -5,7 +7,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-abstract public class GameObjectUpload {
+public abstract class GameObjectUpload {
     Point2D position;
     Point2D velocity;
 
@@ -66,7 +68,7 @@ abstract public class GameObjectUpload {
         );
     }
 
-    public void destory(Group root){
+    public void destroy(Group root){
 //        When a total object crashes or dies remove the object from the component and the main function will not print it
         root.getChildren().remove(gameRoot);
         alive = false;

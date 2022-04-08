@@ -3,10 +3,11 @@ package comp30830.asteroidsproject;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.shape.Shape;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
-public abstract class Bullets extends GameObjectUpload{
+public abstract class Bullets extends GameObjectUpload {
 
     protected Timer lifespan;
 
@@ -25,8 +26,8 @@ public abstract class Bullets extends GameObjectUpload{
         return null;
     }
 
-    // Need to check if this.gameRoot destroys this object only or others - are the game root objects
-    // connected
+     //Need to check if this.gameRoot destroys this object only or others - are the game root objects
+     //connected
     void lifespanEnd() {
         super.destroy(this.gameRoot);
     }

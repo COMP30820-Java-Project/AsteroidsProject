@@ -1,18 +1,22 @@
 //import com.sun.javafx.geom.Point2D;
+package comp30830.asteroidsproject;
+
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class MainUpdate extends Application {
     //Setting window size
@@ -111,8 +115,8 @@ public class MainUpdate extends Application {
                 for (Asteroid asteroid : asteroids) {
                     for (Bullet bullet : bullets) {
                         if(asteroid.strike(bullet)){
-                            asteroid.destory(gAsteroids);
-                            bullet.destory(gBullets);
+                            asteroid.destroy(gAsteroids);
+                            bullet.destroy(gBullets);
                             break;
                         }
                     }
@@ -120,7 +124,7 @@ public class MainUpdate extends Application {
 //                        continue;
 //                    }
                     if(asteroid.leavingBounds(bounds)){
-                        asteroid.destory(gAsteroids);
+                        asteroid.destroy(gAsteroids);
                     }else{
                         asteroid.update(delta);
                     }
@@ -129,7 +133,7 @@ public class MainUpdate extends Application {
 
                 for (Bullet bullet : bullets) {
                     if(bullet.leavingBounds(bounds)){
-                        bullet.destory(gBullets);
+                        bullet.destroy(gBullets);
                     }else{
                         bullet.update(delta);
                     }
