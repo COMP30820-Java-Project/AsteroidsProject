@@ -1,6 +1,5 @@
 package comp30830.asteroidsproject;
 
-import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -9,8 +8,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -24,6 +21,11 @@ public class gui extends Application {
     // Animation function called is the run method. Placeholder for now to run the application
     // Can be used as main entry point for game or could be changed depending on what we want
     public void start(Stage stage) throws Exception{
+
+
+
+
+
         stage.setTitle("ASTEROIDS");
         Canvas canvas = new Canvas(width, height);
         GraphicsContext gc = canvas.getGraphicsContext2D();

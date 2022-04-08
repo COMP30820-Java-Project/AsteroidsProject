@@ -7,8 +7,10 @@ import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -36,6 +38,10 @@ public class MainUpdate extends Application {
 
     @Override
     public void start(Stage stage){
+
+
+
+
 
         Group gRoot = new Group();
         Scene scene = new Scene(gRoot,size.getX(),size.getY());
@@ -156,9 +162,38 @@ public class MainUpdate extends Application {
             }
         };
 
-        loop.start();
 
+        Button playBtn = new Button("Play");
+        Button highScoreBtn = new Button("High Score");
+        Button instructionsBtn = new Button("How to play");
+
+        playBtn.setOnAction(actionEvent ->  {
+
+            //start loop
+            loop.start();
+
+            //set scene to game scene
+            stage.setScene(scene);
+
+
+            //show
+            stage.show();
+        });
+
+
+
+
+        VBox vbox = new VBox(playBtn,highScoreBtn,instructionsBtn);
+        Scene mainMenu = new Scene(vbox,size.getX(), size.getY());
+        //mainMenu.getStylesheets().add("AsteroidsProject/comp30830.asteroidsproject/MainMenu.css");
+        stage.setScene(mainMenu);
         stage.show();
+
+
+
+
+
+       // stage.show();
 
     }
 
