@@ -144,14 +144,14 @@ public class MainUpdate extends Application {
                     asteroids.add(Asteroid.make(gAsteroids,size));
                 }
                 if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
-                    Bullet b = new PlayerBullets(gBullets,ship.position,ship.velocity,ship.radian);
+                    PlayerBullets b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
                     bullets.add(b);
                     bulletTimer = bulletWaitTime;
                 }
                 bulletTimer -= delta;
 
-                double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
-                ship.update(delta,rot,key(KeyCode.UP));
+                double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT))*1.5;
+                ship.update(delta,rot*-1,key(KeyCode.UP));
 
             }
         };
