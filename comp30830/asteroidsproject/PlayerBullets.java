@@ -9,7 +9,10 @@ import javafx.scene.shape.Shape;
 public class PlayerBullets extends Bullet {
 
     protected Circle bullet;
-    PlayerBullets(Group root, Point2D p0, Point2D vShip, double angle) {
+    PlayerBullets(Group root,
+                  Point2D p0,
+                  Point2D vShip,
+                  double angle) {
         super(root, p0, vShip, angle);
 
         bullet = new Circle(3, Color.rgb(100,100,0));

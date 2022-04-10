@@ -10,7 +10,10 @@ public class AlienBullets extends Bullet {
 
     protected Circle bullet;
 
-    AlienBullets(Group root, Point2D p0, Point2D vShip, double angle) {
+    AlienBullets(Group root,
+                 Point2D p0,
+                 Point2D vShip, 
+                 double angle) {
         super(root, p0, vShip, angle);
 
         bullet = new Circle(3, Color.rgb(255,0,0));
