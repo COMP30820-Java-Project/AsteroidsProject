@@ -150,8 +150,8 @@ public class MainUpdate extends Application {
                 }
                 bulletTimer -= delta;
 
-                double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
-                ship.update(delta,rot,key(KeyCode.UP));
+                double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT))*1.5;
+                ship.update(delta,rot*-1,key(KeyCode.UP));
 
             }
         };

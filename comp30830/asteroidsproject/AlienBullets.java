@@ -12,7 +12,7 @@ public class AlienBullets extends Bullet {
 
     AlienBullets(Group root,
                  Point2D p0,
-                 Point2D vShip, 
+                 Point2D vShip,
                  double angle) {
         super(root, p0, vShip, angle);
 
