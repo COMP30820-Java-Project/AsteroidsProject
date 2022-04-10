@@ -144,7 +144,7 @@ public class MainUpdate extends Application {
                     asteroids.add(Asteroid.make(gAsteroids,size));
                 }
                 if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
-                    Bullet b = new Bullet(gBullets,ship.position,ship.velocity,ship.radian);
+                    Bullet b = new PlayerBullets(gBullets,ship.position,ship.velocity,ship.radian);
                     bullets.add(b);
                     bulletTimer = bulletWaitTime;
                 }
