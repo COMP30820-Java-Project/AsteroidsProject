@@ -5,6 +5,8 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polyline;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Scale;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,6 +58,7 @@ class PlayerBullet extends Bullets {
         gameTransform.getChildren().add(line);
         line.setStroke(Color.BLUE);
         line.setStrokeWidth(0.1);
+        line.getTransforms().add(new Scale(30,30));
     }
 }
 

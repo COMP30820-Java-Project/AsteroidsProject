@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
@@ -46,6 +47,16 @@ public class MainUpdate extends Application {
         shipUpload ship = new shipUpload(gGame,size.multiply(0.5));
 //        Get all the components
         gRoot.getChildren().addAll(gGame);
+
+//        Group bulletGroup = new Group();
+//        Circle bullet = new Circle();
+//        bullet.setCenterX(100);
+//        bullet.setCenterY(100);
+//        bullet.setRadius(20);
+//        bullet.setFill(Color.BLUE);
+//
+//        bulletGroup.getChildren().add(bullet);
+//        gRoot.getChildren().addAll(bulletGroup);
 
         /*
          * SETUP
@@ -89,8 +100,18 @@ public class MainUpdate extends Application {
 //                Angle change can be obtained by user button
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT));
                 ship.update(delta,rot,key(KeyCode.UP));
-                if (key(KeyCode.SPACE) == 1)
-                    ship.fireBullet();
+                if (key(KeyCode.SPACE) == 1) {
+                    Group bulletGroup = new Group();
+                    Circle bullet = new Circle();
+                    bullet.setCenterX(100);
+                    bullet.setCenterY(100);
+                    bullet.setRadius(20);
+                    bullet.setFill(Color.BLUE);
+
+                    bulletGroup.getChildren().add(bullet);
+                    gRoot.getChildren().addAll(bulletGroup);
+                }
+
 
             }
         };
