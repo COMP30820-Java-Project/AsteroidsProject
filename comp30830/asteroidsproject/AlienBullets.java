@@ -6,13 +6,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-public class PlayerBullets extends Bullet {
+public class AlienBullets extends Bullet {
 
     protected Circle bullet;
-    PlayerBullets(Group root, Point2D p0, Point2D vShip, double angle) {
+
+    AlienBullets(Group root, Point2D p0, Point2D vShip, double angle) {
         super(root, p0, vShip, angle);
 
-        bullet = new Circle(3, Color.rgb(100,100,0));
+        bullet = new Circle(3, Color.rgb(255,0,0));
         gameTransform.getChildren().add(bullet);
     }
 
