@@ -2,13 +2,15 @@ package comp30830.asteroidsproject;
 
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-abstract public class GameObjectUpload {
+public abstract class GameObjectUpload {
     Point2D position;
     Point2D velocity;
+
 //    Use toDegrees function change into angle
     double radian;
 //    Angular acceleration of aircraft(Radian acceleration)
@@ -70,7 +72,6 @@ abstract public class GameObjectUpload {
 //        When a total object crashes or dies remove the object from the component and the main function will not print it
         root.getChildren().remove(gameRoot);
         alive = false;
-
     }
 //    Create this object according to your needs(Mark the outer boundary of this object)
     abstract Shape getShapeOfObject();
@@ -79,7 +80,7 @@ abstract public class GameObjectUpload {
 //       /*
 //       Determine when to collide
 //       */
-        return alive && other.alive && Shape.intersect(getShapeOfObject(),other.getShapeOfObject()).getBoundsInLocal().isEmpty();
+        return alive && other.alive && !Shape.intersect(getShapeOfObject(),other.getShapeOfObject()).getBoundsInLocal().isEmpty();
     }
 
     static Point2D FindAngleDirection(double angle,double mag){
@@ -89,6 +90,27 @@ abstract public class GameObjectUpload {
         double x = Math.cos(angle)*mag;
         double y = Math.sin(angle)*mag;
         return new Point2D(x,y);
+    }
+
+    static double rand(double min,double max){
+        /*
+         * 这个物体可以在哪个范围内运动
+         * */
+        return Math.random()*(max-min)+min;
+
+    }
+
+    public boolean leavingBounds(Rectangle bounds) {
+        if(!Shape.intersect(getShapeOfObject(), bounds).getBoundsInLocal().isEmpty()){
+            return false;
+        }
+        double x = position.getX();
+        double y = position.getY();
+        double bx = bounds.getWidth();
+        double by = bounds.getHeight();
+
+        return x <=0 && velocity.getX() <= 0 || x >= bx && velocity.getX() >=0 || y <=0 && velocity.getY() <= 0||y>=by && velocity.getY()>=0;
+
     }
 
 
