@@ -242,11 +242,10 @@ public class MainUpdate extends Application {
                             System.out.println("SHIP HIT");
                             ship.lives -= 1;
                             System.out.println(ship.lives);
-                            ship.resetInvincible();
+                            ship.handleInvincible();
 
 
 
-                            ship.invincible = true;
                             break;
                         }
 

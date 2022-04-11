@@ -87,7 +87,8 @@ public class shipUpload extends GameObjectUpload {
         shipUpload.invincible = invincible;
     }
 
-    public void resetInvincible() {
+    public void handleInvincible() {
+        shipUpload.setInvincible(true);
         Timer invincibilityTimer = new Timer();
         invincibilityTimer.schedule(new TimerTask() {
             @Override
