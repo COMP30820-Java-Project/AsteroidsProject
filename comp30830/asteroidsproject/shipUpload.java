@@ -7,6 +7,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class shipUpload extends GameObjectUpload {
     public boolean invincible;
@@ -79,5 +81,15 @@ public class shipUpload extends GameObjectUpload {
     public PlayerBullets fireBullet(Group root,Point2D p0,Point2D v0,double angle) {
         PlayerBullets bullet = new PlayerBullets(root, p0, v0, angle);
         return bullet;
+    }
+
+    public void resetInvincible() {
+        Timer invincibilityTimer = new Timer();
+        invincibilityTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                this.invincible = false;
+            }
+        }, 2000);
     }
 }
