@@ -11,7 +11,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class shipUpload extends GameObjectUpload {
-    public boolean invincible;
+    public static boolean invincible;
     public int lives;
     public int scores;
     //    acceleration
@@ -25,7 +25,7 @@ public class shipUpload extends GameObjectUpload {
 
         super(parent, p, Point2D.ZERO,0,0);
 
-        boolean invincible = false;
+        this.invincible = false;
 //        Draw the spacecraft
         pg = new Polygon(
                 0.7,0,-0.7,-0.4,-0.7,0.4
@@ -83,12 +83,16 @@ public class shipUpload extends GameObjectUpload {
         return bullet;
     }
 
+    public static void setInvincible(boolean invincible) {
+        shipUpload.invincible = invincible;
+    }
+
     public void resetInvincible() {
         Timer invincibilityTimer = new Timer();
         invincibilityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                this.invincible = false;
+                shipUpload.setInvincible(false);
             }
         }, 2000);
     }
