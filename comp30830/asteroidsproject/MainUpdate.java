@@ -48,6 +48,9 @@ public class MainUpdate extends Application {
 
 
 
+
+
+
         //create buttons for mainMenu scene
         Button playBtn = new Button("PLAY");
         playBtn.getStyleClass().add("button");
@@ -108,13 +111,14 @@ public class MainUpdate extends Application {
 
 
 
-        int score = 100;
-        int lives = 3;
+
+
 
         //create HBox to display in game information (added to gRoot)
-        Text scoreTxt = new Text("SCORE: " + score + " |");
+        Text scoreTxt = new Text("SCORE: " + ship.scores + " |");
+
         scoreTxt.getStyleClass().add("inGameInfo");
-        Text livesTxt = new Text("| LIVES: " + lives +" |");
+        Text livesTxt = new Text();
         livesTxt.getStyleClass().add("inGameInfo");
         Text inGameEscTxt = new Text(" | PRESS ESC TO EXIT TO MAIN MENU |");
         inGameEscTxt.getStyleClass().add("inGameInfo");
@@ -186,29 +190,8 @@ public class MainUpdate extends Application {
             }
         });
 
-//        @Override
-//        public void start() {
-//            super.start();
-//            restartScheduled = true;
-//        }
-//        @Override
-//        public void handle(long now) {
-//            if (restartScheduled) {
-//                animationStart = now;
-//                restartScheduled = false;
-//            }
-//        }
 
-//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent t) {
-//                KeyCode key = t.getCode();
-//
-//                if (key == KeyCode.ESCAPE){
-//                    stage.setScene((mainMenu));
-//                }
-//            }
-//        });
+
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
@@ -217,9 +200,6 @@ public class MainUpdate extends Application {
                 keysDown.remove(keyEvent.getCode());
             }
         });
-
-
-
 
 
         AnimationTimer loop = new AnimationTimer(){
@@ -248,9 +228,27 @@ public class MainUpdate extends Application {
                         if(asteroid.strike(bullet)){
                             asteroid.destroy(gAsteroids);
                             bullet.destroy(gBullets);
+
+
                             break;
                         }
+
                     }
+
+
+
+                    if(!ship.invincible){
+                        if (asteroid.strike(ship)){
+                            System.out.println("SHIP HIT");
+
+
+
+                            ship.invincible = true;
+                            break;
+                        }
+
+                    }
+
 //                    if(!asteroid.alive){
 //                        continue;
 //                    }

@@ -9,15 +9,21 @@ import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
 
 public class shipUpload extends GameObjectUpload {
-//    acceleration
+    public boolean invincible;
+    public int lives;
+    public int scores;
+    //    acceleration
     double acceleration = 150;
 //    draw plane
     Polygon pg;
 
     public shipUpload(Group parent, Point2D p) {
 
+
+
         super(parent, p, Point2D.ZERO,0,0);
 
+        boolean invincible = false;
 //        Draw the spacecraft
         pg = new Polygon(
                 0.7,0,-0.7,-0.4,-0.7,0.4
