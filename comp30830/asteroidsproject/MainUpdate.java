@@ -5,14 +5,17 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
@@ -36,8 +39,94 @@ public class MainUpdate extends Application {
         launch(args);
     }
 
+    boolean restartScheduled;
+
     @Override
     public void start(Stage stage){
+        restartScheduled = true;
+        long animationStart;
+
+
+
+        //create buttons for mainMenu scene
+        Button playBtn = new Button("PLAY");
+        playBtn.getStyleClass().add("button");
+        Button highScoreBtn = new Button("HIGH SCORE");
+        highScoreBtn.getStyleClass().add("button");
+        Button instructionsBtn = new Button("HOW TO PLAY");
+        instructionsBtn.getStyleClass().add("button");
+        Text heading = new Text("ASTEROIDS");
+        heading.getStyleClass().add("Title");
+
+
+        //Insert buttons and headings into VBox object
+        VBox vboxMain = new VBox(heading,playBtn,highScoreBtn,instructionsBtn);
+        vboxMain.setSpacing(10.0);
+        vboxMain.setAlignment(Pos.CENTER);
+
+
+        //create main menu scene with vbox added
+        Scene mainMenu = new Scene(vboxMain,size.getX(), size.getY());
+        mainMenu.setFill(Color.BLACK);
+        mainMenu.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+        //stage.setScene(mainMenu);
+        //stage.show();
+
+
+        //create content  for high score scene VBOX
+        Text highScore = new Text("HIGH SCORE");
+        Text escText = new Text("PRESS ESC TO EXIT");
+        escText.getStyleClass().add("Title");
+        highScore.getStyleClass().add("Title");
+
+
+        //Add content to vbox and create highScoreScene
+        VBox vboxHS = new VBox(highScore,escText);
+        vboxHS.setSpacing(10.0);
+        vboxHS.setAlignment(Pos.CENTER);
+        Scene highScoreScene = new Scene(vboxHS,size.getX(), size.getY());
+        highScoreScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+
+
+        //create instruction content for VBox
+        Text shootTxt = new Text("PRESS SPACE TO SHOOT");
+        shootTxt.getStyleClass().add("Title");
+        Text rotateTxt = new Text("USE ARROWS KEYS TO ROTATE");
+        rotateTxt.getStyleClass().add("Title");
+        Text hypeSpaceTxt = new Text("PRESS TO HYPERSPACE JUMP");
+        hypeSpaceTxt.getStyleClass().add("Title");
+        //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
+
+       //Insert content to a VBox object and create instructionScene
+        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escText);
+        vboxInstruct.setSpacing(10.0);
+        vboxInstruct.setAlignment(Pos.CENTER);
+        Scene instructionScene = new Scene(vboxInstruct,size.getX(), size.getY());
+        instructionScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+
+
+
+
+
+        int score = 100;
+        int lives = 3;
+
+        //create HBox to display in game information (added to gRoot)
+        Text scoreTxt = new Text("SCORE: " + score + " |");
+        scoreTxt.getStyleClass().add("inGameInfo");
+        Text livesTxt = new Text("| LIVES: " + lives +" |");
+        livesTxt.getStyleClass().add("inGameInfo");
+        Text inGameEscTxt = new Text(" | PRESS ESC TO EXIT TO MAIN MENU |");
+        inGameEscTxt.getStyleClass().add("inGameInfo");
+        Text pauseTxt = new Text("| PRESS P TO PAUSE |");
+        pauseTxt.getStyleClass().add("inGameInfo");
+
+        HBox hbox = new HBox(scoreTxt,livesTxt,inGameEscTxt);
+        hbox.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+        hbox.setSpacing(50.0);
+        hbox.setAlignment(Pos.TOP_CENTER);
+
+
 
 
 
@@ -46,6 +135,8 @@ public class MainUpdate extends Application {
         Group gRoot = new Group();
         Scene scene = new Scene(gRoot,size.getX(),size.getY());
         stage.setScene(scene);
+
+
         stage.setTitle("Asteroids");
         scene.setFill(Color.BLACK);
 
@@ -71,7 +162,7 @@ public class MainUpdate extends Application {
 
 
 //        Get all the components
-        gRoot.getChildren().addAll(gGame);
+        gRoot.getChildren().addAll(gGame,hbox);
 
         /*
          * SETUP
@@ -83,8 +174,41 @@ public class MainUpdate extends Application {
             public void handle(KeyEvent event) {
 //                Gets the current key pressed to avoid sticking into the set
                 keysDown.add(event.getCode());
+
+                KeyCode key = event.getCode();
+
+                if (key == KeyCode.ESCAPE){
+                    stage.setScene((mainMenu));
+
+                }
+
+
             }
         });
+
+//        @Override
+//        public void start() {
+//            super.start();
+//            restartScheduled = true;
+//        }
+//        @Override
+//        public void handle(long now) {
+//            if (restartScheduled) {
+//                animationStart = now;
+//                restartScheduled = false;
+//            }
+//        }
+
+//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent t) {
+//                KeyCode key = t.getCode();
+//
+//                if (key == KeyCode.ESCAPE){
+//                    stage.setScene((mainMenu));
+//                }
+//            }
+//        });
 
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
@@ -93,6 +217,7 @@ public class MainUpdate extends Application {
                 keysDown.remove(keyEvent.getCode());
             }
         });
+
 
 
 
@@ -162,18 +287,52 @@ public class MainUpdate extends Application {
             }
         };
 
+        //When game started, set scene to mainMenu
+        stage.setScene(mainMenu);
+        stage.show();
 
-        Button playBtn = new Button("Play");
-        Button highScoreBtn = new Button("High Score");
-        Button instructionsBtn = new Button("How to play");
-
+        //add event listeners to navigate through menu/highscores/insrauctions/game
         playBtn.setOnAction(actionEvent ->  {
 
             //start loop
             loop.start();
-
             //set scene to game scene
             stage.setScene(scene);
+
+            stage.show();
+        });
+
+
+        highScoreBtn.setOnAction(actionEvent ->  {
+
+            //set scene to game scene
+            stage.setScene(highScoreScene);
+
+            stage.show();
+        });
+
+        //press ESC to exit
+        highScoreScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                KeyCode key = t.getCode();
+
+                if (key == KeyCode.ESCAPE){
+                    stage.setScene((mainMenu));
+                }
+            }
+        });
+
+
+
+
+        instructionsBtn.setOnAction(actionEvent ->  {
+
+
+
+            //set scene to game scene
+            stage.setScene(instructionScene);
+
 
 
             //show
@@ -181,19 +340,17 @@ public class MainUpdate extends Application {
         });
 
 
+        //press ESC to exit
+        instructionScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                KeyCode key = t.getCode();
 
-
-        VBox vbox = new VBox(playBtn,highScoreBtn,instructionsBtn);
-        Scene mainMenu = new Scene(vbox,size.getX(), size.getY());
-        //mainMenu.getStylesheets().add("AsteroidsProject/comp30830.asteroidsproject/MainMenu.css");
-        stage.setScene(mainMenu);
-        stage.show();
-
-
-
-
-
-       // stage.show();
+                if (key == KeyCode.ESCAPE){
+                    stage.setScene((mainMenu));
+                }
+            }
+        });
 
     }
 
