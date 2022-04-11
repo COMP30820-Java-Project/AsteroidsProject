@@ -115,7 +115,7 @@ public class MainUpdate extends Application {
 
 
         //create HBox to display in game information (added to gRoot)
-        Text scoreTxt = new Text("SCORE: " + ship.scores + " |");
+        Text scoreTxt = new Text("SCORE:");
 
         scoreTxt.getStyleClass().add("inGameInfo");
         Text livesTxt = new Text();
@@ -240,6 +240,9 @@ public class MainUpdate extends Application {
                     if(!ship.invincible){
                         if (asteroid.strike(ship)){
                             System.out.println("SHIP HIT");
+                            ship.lives -= 1;
+                            System.out.println(ship.lives);
+                            ship.resetInvincible();
 
 
 
