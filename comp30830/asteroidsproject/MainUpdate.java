@@ -22,8 +22,14 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MainUpdate extends Application {
+	
+	//level to control the level
+	int level = 0;
+	Asteroid tempA = null;
+	Asteroid tempB = null;
     //Setting window size
     Point2D size = new Point2D(800,600);
     Rectangle bounds = new Rectangle(800,600);
@@ -45,9 +51,6 @@ public class MainUpdate extends Application {
     public void start(Stage stage){
         restartScheduled = true;
         long animationStart;
-
-
-
 
 
 
@@ -132,10 +135,6 @@ public class MainUpdate extends Application {
 
 
 
-
-
-
-
         Group gRoot = new Group();
         Scene scene = new Scene(gRoot,size.getX(),size.getY());
         stage.setScene(scene);
@@ -205,7 +204,7 @@ public class MainUpdate extends Application {
         AnimationTimer loop = new AnimationTimer(){
             double oldTime = -1;
 
-            int asteroidCount = 10;
+            int asteroidCount = 8;
             double bulletWaitTime = 0.3;
             double bulletTimer = 0;
 
@@ -223,19 +222,38 @@ public class MainUpdate extends Application {
                 /*
                 * The specific control logic is implemented here
                 * */
+                
+                List<Asteroid> addList = new LinkedList<>();
+                List<Asteroid> delList = new LinkedList<>();
+                
                 for (Asteroid asteroid : asteroids) {
                     for (Bullet bullet : bullets) {
                         if(asteroid.strike(bullet)){
+         
+                            // start splitting
+                            if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
+                            	level = 1;
+                            	tempA = asteroid.split(gAsteroids);
+                            	tempB = asteroid.split(gAsteroids);
+                            }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
+                            	level = 2;
+                            	tempA = asteroid.split(gAsteroids);
+                            	tempB = asteroid.split(gAsteroids);
+                            }else {
+                            	level = 0;
+                            }
+                            
+                            // avoid concurrent error
+                            addList.add(tempA);
+                            addList.add(tempB);
+                            delList.add(asteroid);
                             asteroid.destroy(gAsteroids);
                             bullet.destroy(gBullets);
-
-
+                            
                             break;
                         }
-
+                        break;
                     }
-
-
 
                     if(!ship.invincible){
                         if (asteroid.strike(ship)){
@@ -243,12 +261,8 @@ public class MainUpdate extends Application {
                             ship.lives -= 1;
                             System.out.println(ship.lives);
                             ship.handleInvincible();
-
-
-
                             break;
                         }
-
                     }
 
 //                    if(!asteroid.alive){
@@ -261,7 +275,15 @@ public class MainUpdate extends Application {
                     }
 
                 }
-
+ 
+                // after looping, add and delete the asteroid from the list
+                for (Asteroid addasteroid : addList) {
+                	 asteroids.add(addasteroid);
+                }
+                for (Asteroid delasteroid : delList) {
+               	 asteroids.add(delasteroid);
+               }
+  
                 for (Bullet bullet : bullets) {
                     if(bullet.leavingBounds(bounds)){
                         bullet.destroy(gBullets);
@@ -271,8 +293,21 @@ public class MainUpdate extends Application {
                 }
                 asteroids.removeIf(asteroid -> !asteroid.alive);
                 bullets.removeIf(bullet -> !bullet.alive);
+                
+                // ensure always generates 10 asteroids
                 while(asteroids.size()<asteroidCount){
-                    asteroids.add(Asteroid.make(gAsteroids,size));
+                	if (level==0) {
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
+                	}else if(level==1) {
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false));
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
+                        
+                	}else if (level==2) {
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Small, false)); 
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false));
+                	}
+                	
                 }
                 if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
                     PlayerBullets b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
