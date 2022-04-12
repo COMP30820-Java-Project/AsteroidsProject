@@ -225,7 +225,7 @@ public class MainUpdate extends Application {
                 
                 List<Asteroid> addList = new LinkedList<>();
                 List<Asteroid> delList = new LinkedList<>();
-                
+            	
                 for (Asteroid asteroid : asteroids) {
                     for (Bullet bullet : bullets) {
                         if(asteroid.strike(bullet)){
@@ -249,10 +249,7 @@ public class MainUpdate extends Application {
                             delList.add(asteroid);
                             asteroid.destroy(gAsteroids);
                             bullet.destroy(gBullets);
-                            
-                            break;
                         }
-                        break;
                     }
 
                     if(!ship.invincible){
