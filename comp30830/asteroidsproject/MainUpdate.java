@@ -89,13 +89,14 @@ public class MainUpdate extends Application {
         System.out.println(highScores);
         Text highScoreValues = new Text(highScores);
         Text highScore = new Text("HIGH SCORE");
-        Text escText = new Text("PRESS ESC TO EXIT");
-        escText.getStyleClass().add("Title");
+        Text escTextHighScore = new Text("PRESS ESC TO EXIT");
+        escTextHighScore.getStyleClass().add("Title");
         highScore.getStyleClass().add("Title");
+        highScoreValues.getStyleClass().add("Title");
 
 
         //Add content to vbox and create highScoreScene
-        VBox vboxHS = new VBox(highScore, highScoreValues, escText);
+        VBox vboxHS = new VBox(highScore, highScoreValues, escTextHighScore);
         vboxHS.setSpacing(10.0);
         vboxHS.setAlignment(Pos.CENTER);
         Scene highScoreScene = new Scene(vboxHS,size.getX(), size.getY());
@@ -109,20 +110,16 @@ public class MainUpdate extends Application {
         rotateTxt.getStyleClass().add("Title");
         Text hypeSpaceTxt = new Text("PRESS TO HYPERSPACE JUMP");
         hypeSpaceTxt.getStyleClass().add("Title");
+        Text escTextInstructions = new Text("PRESS ESC TO EXIT");
+        escTextInstructions.getStyleClass().add("Title");
         //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
 
        //Insert content to a VBox object and create instructionScene
-        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escText);
+        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escTextInstructions);
         vboxInstruct.setSpacing(10.0);
         vboxInstruct.setAlignment(Pos.CENTER);
         Scene instructionScene = new Scene(vboxInstruct,size.getX(), size.getY());
         instructionScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
-
-
-
-
-
-
 
 
         //create HBox to display in game information (added to gRoot)
