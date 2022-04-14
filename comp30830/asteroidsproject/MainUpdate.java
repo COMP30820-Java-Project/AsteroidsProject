@@ -80,23 +80,35 @@ public class MainUpdate extends Application {
 
 
         //create content  for high score scene VBOX
+
+        // Read string array from external text file and create individual text objects
         String[] highScoreLines = HighScores.readHighScores();
-        String highScores = "";
-        for (int i = 0; i < highScoreLines.length; i++) {
-            highScores += highScoreLines[i];
-            highScores += "%n";
-        }
-        System.out.println(highScores);
-        Text highScoreValues = new Text(highScores);
+        Text highScore1 = new Text(highScoreLines[0]);
+        Text highScore2 = new Text(highScoreLines[1]);
+        Text highScore3 = new Text(highScoreLines[2]);
+        Text highScore4 = new Text(highScoreLines[3]);
+        Text highScore5 = new Text(highScoreLines[4]);
         Text highScore = new Text("HIGH SCORE");
         Text escTextHighScore = new Text("PRESS ESC TO EXIT");
+
+        // Style each text element as title
         escTextHighScore.getStyleClass().add("Title");
         highScore.getStyleClass().add("Title");
-        highScoreValues.getStyleClass().add("Title");
+        highScore1.getStyleClass().add("Title");
+        highScore2.getStyleClass().add("Title");
+        highScore3.getStyleClass().add("Title");
+        highScore4.getStyleClass().add("Title");
+        highScore5.getStyleClass().add("Title");
 
 
         //Add content to vbox and create highScoreScene
-        VBox vboxHS = new VBox(highScore, highScoreValues, escTextHighScore);
+        VBox vboxHS = new VBox(highScore,
+                highScore1,
+                highScore2,
+                highScore3,
+                highScore4,
+                highScore5,
+                escTextHighScore);
         vboxHS.setSpacing(10.0);
         vboxHS.setAlignment(Pos.CENTER);
         Scene highScoreScene = new Scene(vboxHS,size.getX(), size.getY());
