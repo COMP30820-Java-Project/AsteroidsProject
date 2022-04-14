@@ -80,6 +80,14 @@ public class MainUpdate extends Application {
 
 
         //create content  for high score scene VBOX
+        String[] highScoreLines = HighScores.readHighScores();
+        String highScores = "";
+        for (int i = 0; i < highScoreLines.length; i++) {
+            highScores += highScoreLines[i];
+            highScores += "%n";
+        }
+        System.out.println(highScores);
+        Text highScoreValues = new Text(highScores);
         Text highScore = new Text("HIGH SCORE");
         Text escText = new Text("PRESS ESC TO EXIT");
         escText.getStyleClass().add("Title");
@@ -87,7 +95,7 @@ public class MainUpdate extends Application {
 
 
         //Add content to vbox and create highScoreScene
-        VBox vboxHS = new VBox(highScore,escText);
+        VBox vboxHS = new VBox(highScore, highScoreValues, escText);
         vboxHS.setSpacing(10.0);
         vboxHS.setAlignment(Pos.CENTER);
         Scene highScoreScene = new Scene(vboxHS,size.getX(), size.getY());
