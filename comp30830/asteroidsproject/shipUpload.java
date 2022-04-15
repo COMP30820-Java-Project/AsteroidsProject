@@ -12,7 +12,7 @@ import java.util.TimerTask;
 
 public class shipUpload extends GameObjectUpload {
     public static boolean invincible;
-    public int lives;
+    public int lives = 3;
     public int scores;
     //    acceleration
     double acceleration = 150;

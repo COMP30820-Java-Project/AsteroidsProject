@@ -18,11 +18,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class MainUpdate extends Application {
 	
@@ -111,6 +107,20 @@ public class MainUpdate extends Application {
         instructionScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
 
 
+        //Create content to display in game over scene
+        Text gameOverTxt = new Text("GAME OVER...");
+        Text newHighScoreTxt = new Text();
+        gameOverTxt.getStyleClass().add("Title");
+        newHighScoreTxt.getStyleClass().add("Title");
+
+        //Insert content to HBOx object and create game over scene
+        VBox gOverVbox = new VBox(gameOverTxt,newHighScoreTxt,escText);
+        gOverVbox.setSpacing(50.0);
+        gOverVbox.setAlignment(Pos.CENTER);
+        Scene gameOverScene = new Scene(gOverVbox,size.getX(), size.getY());
+        gameOverScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+
+
 
 
 
@@ -119,16 +129,17 @@ public class MainUpdate extends Application {
 
         //create HBox to display in game information (added to gRoot)
         Text scoreTxt = new Text("SCORE:");
-
         scoreTxt.getStyleClass().add("inGameInfo");
         Text livesTxt = new Text();
-        livesTxt.getStyleClass().add("inGameInfo");
-        Text inGameEscTxt = new Text(" | PRESS ESC TO EXIT TO MAIN MENU |");
-        inGameEscTxt.getStyleClass().add("inGameInfo");
-        Text pauseTxt = new Text("| PRESS P TO PAUSE |");
-        pauseTxt.getStyleClass().add("inGameInfo");
 
-        HBox hbox = new HBox(scoreTxt,livesTxt,inGameEscTxt);
+        livesTxt.getStyleClass().add("inGameInfo");
+        Text inGameEscTxt = new Text(" | PRESS ESC TO END GAME |");
+        inGameEscTxt.getStyleClass().add("inGameInfo");
+        Text shipHitTxt = new Text();
+        shipHitTxt.getStyleClass().add("inGameInfo");
+        Timer shipHitTimer = new Timer();
+
+        HBox hbox = new HBox(scoreTxt,livesTxt,shipHitTxt,inGameEscTxt);
         hbox.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
         hbox.setSpacing(50.0);
         hbox.setAlignment(Pos.TOP_CENTER);
@@ -181,7 +192,7 @@ public class MainUpdate extends Application {
                 KeyCode key = event.getCode();
 
                 if (key == KeyCode.ESCAPE){
-                    stage.setScene((mainMenu));
+                    System.exit(0);
 
                 }
 
@@ -202,14 +213,21 @@ public class MainUpdate extends Application {
 
 
         AnimationTimer loop = new AnimationTimer(){
-            double oldTime = -1;
 
+
+
+            double oldTime = -1;
             int asteroidCount = 8;
             double bulletWaitTime = 0.3;
             double bulletTimer = 0;
 
+
+
             @Override
             public void handle(long nanoTime) {
+
+                livesTxt.setText("LIVES: " + String.valueOf(ship.lives) );
+
                 if(oldTime<0){
                     oldTime = nanoTime;
                 }
@@ -225,6 +243,8 @@ public class MainUpdate extends Application {
                 
                 List<Asteroid> addList = new LinkedList<>();
                 List<Asteroid> delList = new LinkedList<>();
+
+
             	
                 for (Asteroid asteroid : asteroids) {
                     for (Bullet bullet : bullets) {
@@ -254,17 +274,47 @@ public class MainUpdate extends Application {
 
                     if(!ship.invincible){
                         if (asteroid.strike(ship)){
-                            System.out.println("SHIP HIT");
+
                             ship.lives -= 1;
                             System.out.println(ship.lives);
                             ship.handleInvincible();
+
+                            shipHitTxt.setText("SHIP HIT!!!");
+                            shipHitTimer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    shipHitTxt.setText("");
+
+                                }
+                            }, 1000);
+
+
+
+
+
+
+
+
+
+
+
+
                             break;
                         }
                     }
 
-//                    if(!asteroid.alive){
-//                        continue;
-//                    }
+                    if(ship.lives ==0){
+                        gGame.getChildren().clear();
+                        gRoot.getChildren().clear();
+                        stage.setScene(gameOverScene);
+
+
+
+                    }
+
+
+
+//
                     if(asteroid.leavingBounds(bounds)){
                         asteroid.destroy(gAsteroids);
                     }else{
@@ -351,6 +401,18 @@ public class MainUpdate extends Application {
 
                 if (key == KeyCode.ESCAPE){
                     stage.setScene((mainMenu));
+                }
+            }
+        });
+
+        //press ESC to exit
+        gameOverScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                KeyCode key = t.getCode();
+
+                if (key == KeyCode.ESCAPE){
+                    System.exit(0);
                 }
             }
         });
