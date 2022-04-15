@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Genos&family=Major+Mono+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Genos&family=Major+Mono+Display&family=Rubik+Wet+Paint&display=swap');
 .root{
 -fx-background-color: black;
 -fx-font-family: 'Delicious';
 }
 
 .button{
-/*-fx-pref-height:auto;
--fx-pref-width:auto;*/
+
 -fx-font-size: 40px;
- -fx-text-fill: white;
- -fx-background-color: black;
+-fx-text-fill: white;
+-fx-background-color: black;
 -fx-font-family: 'Genos', sans-serif;
 
 
@@ -30,9 +29,21 @@
 -fx-fill: white;
 
 }
+.gameOver{
+-fx-font-family: 'Major Mono Display', monospace;
+-fx-pref-height:100px;
+-fx-pref-width:400px;
+-fx-font-size: 70px;
+-fx-fill: white;
+}
 
 .inGameInfo{
 -fx-fill: white;
--fx-font-size: 15px;
+-fx-font-size: 40px;
+-fx-font-family: 'Genos', sans-serif;
 
+
+}
+.shipHit{
+-fx-font-family: 'Rubik Wet Paint', cursive;
 }

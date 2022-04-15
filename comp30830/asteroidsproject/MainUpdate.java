@@ -108,14 +108,14 @@ public class MainUpdate extends Application {
 
 
         //Create content to display in game over scene
-        Text gameOverTxt = new Text("GAME OVER...");
+        Text gameOverTxt = new Text("GAME OVER");
         Text newHighScoreTxt = new Text();
-        gameOverTxt.getStyleClass().add("Title");
+        gameOverTxt.getStyleClass().add("gameOver");
         newHighScoreTxt.getStyleClass().add("info");
 
         //Insert content to HBOx object and create game over scene
         VBox gOverVbox = new VBox(gameOverTxt,newHighScoreTxt,escText);
-        gOverVbox.setSpacing(50.0);
+        gOverVbox.setSpacing(10);
         gOverVbox.setAlignment(Pos.CENTER);
         Scene gameOverScene = new Scene(gOverVbox,size.getX(), size.getY());
         gameOverScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
@@ -128,21 +128,24 @@ public class MainUpdate extends Application {
 
 
         //create HBox to display in game information (added to gRoot)
-        Text scoreTxt = new Text("SCORE:");
+        Text scoreTxt = new Text("| SCORE: 100 |");
         scoreTxt.getStyleClass().add("inGameInfo");
         Text livesTxt = new Text();
 
         livesTxt.getStyleClass().add("inGameInfo");
-        Text inGameEscTxt = new Text(" | PRESS ESC TO END GAME |");
+        Text inGameEscTxt = new Text("| ESC TO EXIT |");
         inGameEscTxt.getStyleClass().add("inGameInfo");
-        Text shipHitTxt = new Text();
-        shipHitTxt.getStyleClass().add("inGameInfo");
+        Text shipHitTxt = new Text("|| SHIP HIT !!! ||");
+        shipHitTxt.getStyleClass().add("shipHit");
+
         Timer shipHitTimer = new Timer();
 
-        HBox hbox = new HBox(scoreTxt,livesTxt,shipHitTxt,inGameEscTxt);
-        hbox.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
-        hbox.setSpacing(50.0);
-        hbox.setAlignment(Pos.TOP_CENTER);
+        HBox tophbox = new HBox(scoreTxt,livesTxt,inGameEscTxt);
+        tophbox.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
+        tophbox.setSpacing(50.0);
+        tophbox.setAlignment(Pos.TOP_CENTER);
+
+
 
 
 
@@ -176,7 +179,7 @@ public class MainUpdate extends Application {
 
 
 //        Get all the components
-        gRoot.getChildren().addAll(gGame,hbox);
+        gRoot.getChildren().addAll(gGame,tophbox);
 
         /*
          * SETUP
@@ -226,7 +229,7 @@ public class MainUpdate extends Application {
             @Override
             public void handle(long nanoTime) {
 
-                livesTxt.setText("LIVES: " + String.valueOf(ship.lives) );
+                livesTxt.setText("| LIVES: " + String.valueOf(ship.lives) + " | " );
 
                 if(oldTime<0){
                     oldTime = nanoTime;
@@ -278,13 +281,14 @@ public class MainUpdate extends Application {
                             ship.lives -= 1;
                             System.out.println(ship.lives);
                             ship.handleInvincible();
-
-                            shipHitTxt.setText("SHIP HIT!!!");
+                            inGameEscTxt.getStyleClass().add("shipHit");
+                            inGameEscTxt.setText("|| SHIP HIT ||");
                             shipHitTimer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
-                                    shipHitTxt.setText("");
-
+                                    inGameEscTxt.getStyleClass().remove("shipHit");
+                                    inGameEscTxt.getStyleClass().add("inGameInfo");
+                                    inGameEscTxt.setText(" | ESC TO EXIT |");
                                 }
                             }, 1000);
 
