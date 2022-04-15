@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Genos&family=Major+Mono+Display&display=swap');
 .root{
 -fx-background-color: black;
 -fx-font-family: 'Delicious';
@@ -7,26 +7,27 @@
 .button{
 /*-fx-pref-height:auto;
 -fx-pref-width:auto;*/
--fx-font-size: 30px;
+-fx-font-size: 40px;
  -fx-text-fill: white;
  -fx-background-color: black;
+-fx-font-family: 'Genos', sans-serif;
+
 
 
 }
-@font-face {
-    font-family: Delicious;
-    src: url('Delicious-Roman.otf');
+.info{
+-fx-font-size: 40px;
+-fx-fill: white;
+-fx-font-family: 'Genos', sans-serif;
 }
+
 
 .Title{
-
+-fx-font-family: 'Major Mono Display', monospace;
 -fx-pref-height:150px;
 -fx-pref-width:400px;
--fx-font-size: 30px;
+-fx-font-size: 100px;
 -fx-fill: white;
-/*-fx-font-family: "OCR A Std", monospace;*/
-
-
 
 }
 

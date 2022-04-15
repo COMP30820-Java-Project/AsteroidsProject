@@ -78,8 +78,8 @@ public class MainUpdate extends Application {
         //create content  for high score scene VBOX
         Text highScore = new Text("HIGH SCORE");
         Text escText = new Text("PRESS ESC TO EXIT");
-        escText.getStyleClass().add("Title");
-        highScore.getStyleClass().add("Title");
+        escText.getStyleClass().add("info");
+        highScore.getStyleClass().add("info");
 
 
         //Add content to vbox and create highScoreScene
@@ -92,11 +92,11 @@ public class MainUpdate extends Application {
 
         //create instruction content for VBox
         Text shootTxt = new Text("PRESS SPACE TO SHOOT");
-        shootTxt.getStyleClass().add("Title");
+        shootTxt.getStyleClass().add("info");
         Text rotateTxt = new Text("USE ARROWS KEYS TO ROTATE");
-        rotateTxt.getStyleClass().add("Title");
-        Text hypeSpaceTxt = new Text("PRESS TO HYPERSPACE JUMP");
-        hypeSpaceTxt.getStyleClass().add("Title");
+        rotateTxt.getStyleClass().add("info");
+        Text hypeSpaceTxt = new Text("PRESS SPACEBAR TO HYPERSPACE JUMP");
+        hypeSpaceTxt.getStyleClass().add("info");
         //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
 
        //Insert content to a VBox object and create instructionScene
@@ -111,7 +111,7 @@ public class MainUpdate extends Application {
         Text gameOverTxt = new Text("GAME OVER...");
         Text newHighScoreTxt = new Text();
         gameOverTxt.getStyleClass().add("Title");
-        newHighScoreTxt.getStyleClass().add("Title");
+        newHighScoreTxt.getStyleClass().add("info");
 
         //Insert content to HBOx object and create game over scene
         VBox gOverVbox = new VBox(gameOverTxt,newHighScoreTxt,escText);
