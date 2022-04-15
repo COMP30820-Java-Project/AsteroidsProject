@@ -13,13 +13,13 @@
 
 
 }
-@font-face {
-    font-family: Delicious;
-    src: url('Delicious-Roman.otf');
-}
+ @font-face {
+        font-family: Space Age;
+        src: url('spaceage.ttf');
+ }
 
 .Title{
-
+-fx-font-family: "Space Age";
 -fx-pref-height:150px;
 -fx-pref-width:400px;
 -fx-font-size: 30px;
