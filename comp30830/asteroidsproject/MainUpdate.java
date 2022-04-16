@@ -157,15 +157,17 @@ public class MainUpdate extends Application {
         stage.setTitle("Asteroids");
         scene.setFill(Color.BLACK);
 
-//        Store all of the ship's components
-        Group gGame = new Group();
+//      Store all of the ship's components
+      Group gGame = new Group();
 
-        /*
-        * Adding bullets and asteroids to components
-        * */
-        Group gAsteroids = new Group();
-        Group gBullets = new Group();
-        gGame.getChildren().addAll(gAsteroids,gBullets);
+      /*
+      * Adding bullets and asteroids to components
+      * */
+      Group gAsteroids = new Group();
+      Group gBullets = new Group();
+//      ¸Ä
+      Group gAlien = new Group();
+      gGame.getChildren().addAll(gAsteroids,gBullets,gAlien);
 
 
 ////        Create a fly spawn and specify a starting location
@@ -176,6 +178,8 @@ public class MainUpdate extends Application {
 * */
         List<Asteroid> asteroids = new LinkedList<>();
         List<Bullet> bullets = new LinkedList<>();
+        List<Bullet> bulletsAlien = new LinkedList<>();
+        List<Alien> aliens = new LinkedList<>();
 
 
 //        Get all the components
@@ -217,13 +221,14 @@ public class MainUpdate extends Application {
 
         AnimationTimer loop = new AnimationTimer(){
 
-
-
-            double oldTime = -1;
-            int asteroidCount = 8;
-            double bulletWaitTime = 0.3;
-            double bulletTimer = 0;
-
+        	 double oldTime = -1;
+             int asteroidCount = 8;
+             int alienBCount = 15;
+             double bulletWaitTime = 0.3;
+             double bulletTimer = 0;
+             double AbulletTimer = 0;
+             double AbulletWaitTime = 1;
+             boolean flagForA = false;
 
 
             @Override
@@ -273,11 +278,57 @@ public class MainUpdate extends Application {
                             asteroid.destroy(gAsteroids);
                             bullet.destroy(gBullets);
                         }
+                        if(aliens.get(0).strike(bullet)) {
+                            aliens.get(0).destroy(gAlien);
+                            flagForA=true;
+                           }
                     }
 
                     if(!ship.invincible){
+                    	
+                    	for (Bullet b:bulletsAlien) {
+                            if (b.strike(ship)) {
+                             ship.setPosition(size.multiply(0.5));
+                                      ship.setVelocity(Point2D.ZERO);
+                                      b.destroy(gBullets);
+                                      
+                            }
+                           }
+                           if(aliens.get(0).strike(ship)) {
+                            ship.setPosition(size.multiply(0.5));
+                                  ship.setVelocity(Point2D.ZERO);
+                                  aliens.get(0).destroy(gAlien);
+                               flagForA=true;
+                                  
+                           }
+
+                    	
                         if (asteroid.strike(ship)){
 
+                        	//¼Ó´úÂë
+//                          ship.destroy(gGame);
+                          ship.setPosition(size.multiply(0.5));;
+                          ship.setVelocity(Point2D.ZERO);
+                          
+                       // start splitting
+                          if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
+                           level = 1;
+                           tempA = asteroid.split(gAsteroids);
+                           tempB = asteroid.split(gAsteroids);
+                          }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
+                           level = 2;
+                           tempA = asteroid.split(gAsteroids);
+                           tempB = asteroid.split(gAsteroids);
+                          }else {
+                           level = 0;
+                          }
+                          
+                          // avoid concurrent error
+                          addList.add(tempA);
+                          addList.add(tempB);
+                          delList.add(asteroid);
+                          asteroid.destroy(gAsteroids);
+                        	
                             ship.lives -= 1;
                             System.out.println(ship.lives);
                             ship.handleInvincible();
@@ -294,15 +345,6 @@ public class MainUpdate extends Application {
 
 
 
-
-
-
-
-
-
-
-
-
                             break;
                         }
                     }
@@ -311,8 +353,6 @@ public class MainUpdate extends Application {
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
                         stage.setScene(gameOverScene);
-
-
 
                     }
 
@@ -370,9 +410,52 @@ public class MainUpdate extends Application {
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT))*1.5;
                 ship.update(delta,rot*-1,key(KeyCode.UP));
 
+                
+                if(flagForA) {
+                 aliens.clear();
+                }
+                flagForA=false;
+                while(aliens.size()<1){
+                 aliens.add(Alien.make(gAlien,size));
+//                 break;
+                }
+//                for(Alien a:aliens) {
+                 if(aliens.get(0).leavingBounds(bounds)){
+//                  System.out.println(aliens.get(0).leavingBounds(bounds)); 
+                  aliens.get(0).destroy(gAlien);
+//                  aliens.remove(0);
+                  flagForA=true;
+                    }else{
+                     aliens.get(0).update(delta);
+                    }
+
+                 while(bulletsAlien.size()<alienBCount&&AbulletTimer<=0){
+                        PlayerBullets b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
+                        bulletsAlien.add(b);
+                        
+                        AbulletTimer = AbulletWaitTime;
+                    }
+                 AbulletTimer -= delta;
+                 
+//                }
+                for (Bullet b : bulletsAlien) {
+                    if(b.leavingBounds(bounds)){
+                        b.destroy(gBullets);
+                        bulletsAlien.remove(b);
+                        
+                    }else{
+                        b.update(delta);
+                    }
+                }
+     
+                
+                
             }
+            
         };
 
+      
+        
         //When game started, set scene to mainMenu
         stage.setScene(mainMenu);
         stage.show();
