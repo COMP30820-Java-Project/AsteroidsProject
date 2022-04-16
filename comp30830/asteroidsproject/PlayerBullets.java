@@ -15,7 +15,7 @@ public class PlayerBullets extends Bullet {
                   double angle) {
         super(root, p0, vShip, angle);
 
-        bullet = new Circle(3, Color.rgb(100,100,0));
+        bullet = new Circle(3, Color.rgb(255,255,0));
         gameTransform.getChildren().add(bullet);
     }
 
