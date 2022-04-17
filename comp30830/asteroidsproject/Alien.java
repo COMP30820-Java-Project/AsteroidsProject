@@ -7,6 +7,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
 
+import comp30830.asteroidsproject.Bullet.Type;
+
 public class Alien extends GameObjectUpload {
 	Polygon pg;
 	double acceleration = 150;
@@ -69,7 +71,7 @@ public class Alien extends GameObjectUpload {
 	
 	
 	  public Bullet fireBullet(Group root,Point2D p0,Point2D v0,double angle) {
-		    Bullet bullet = new Bullet(root, p0, v0, angle);
+		    Bullet bullet = new Bullet(root, p0, v0, angle, Type.ALIEN);
 			return bullet;
 		  }
 	

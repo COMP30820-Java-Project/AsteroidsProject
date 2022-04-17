@@ -10,6 +10,8 @@ import javafx.scene.transform.Scale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import comp30830.asteroidsproject.Bullet.Type;
+
 public class shipUpload extends GameObjectUpload {
     public static boolean invincible;
     public int lives = 3;
@@ -79,7 +81,7 @@ public class shipUpload extends GameObjectUpload {
     }
 
     public Bullet fireBullet(Group root,Point2D p0,Point2D v0,double angle) {
-        Bullet bullet = new PlayerBullets(root, p0, v0, angle);
+        Bullet bullet = new Bullet(root, p0, v0, angle, Type.PLAYER);
         return bullet;
     }
 
