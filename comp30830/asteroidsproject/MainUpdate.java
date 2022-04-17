@@ -116,14 +116,14 @@ public class MainUpdate extends Application {
         shootTxt.getStyleClass().add("info");
         Text rotateTxt = new Text("USE ARROWS KEYS TO ROTATE");
         rotateTxt.getStyleClass().add("info");
-        Text hypeSpaceTxt = new Text("PRESS SPACEBAR TO HYPERSPACE JUMP");
-        hypeSpaceTxt.getStyleClass().add("info");
+        Text bulletTxt = new Text("PRESS SPACEBAR TO SHOOT");
+        bulletTxt.getStyleClass().add("info");
         Text escTextInstructions = new Text("PRESS ESC TO EXIT");
         escTextInstructions.getStyleClass().add("info");
         //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
 
        //Insert content to a VBox object and create instructionScene
-        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escTextInstructions);
+        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,bulletTxt,escTextInstructions);
         vboxInstruct.setSpacing(10.0);
         vboxInstruct.setAlignment(Pos.CENTER);
         Scene instructionScene = new Scene(vboxInstruct,size.getX(), size.getY());
@@ -133,11 +133,12 @@ public class MainUpdate extends Application {
         //Create content to display in game over scene
         Text gameOverTxt = new Text("GAME OVER");
         Text newHighScoreTxt = new Text();
+        Text escTextGameOver = new Text("PRESS ESC TO EXIT");
         gameOverTxt.getStyleClass().add("gameOver");
         newHighScoreTxt.getStyleClass().add("info");
 
         //Insert content to HBOx object and create game over scene
-        VBox gOverVbox = new VBox(gameOverTxt,newHighScoreTxt,escText);
+        VBox gOverVbox = new VBox(gameOverTxt,newHighScoreTxt,escTextGameOver);
         gOverVbox.setSpacing(10);
         gOverVbox.setAlignment(Pos.CENTER);
         Scene gameOverScene = new Scene(gOverVbox,size.getX(), size.getY());
@@ -265,7 +266,7 @@ public class MainUpdate extends Application {
                 double delta = (nanoTime-oldTime)/1e9;
                 oldTime = nanoTime;
                 /*
-                 * GAMP LOOP
+                 * GAME LOOP
                  * */
 //                Angle change can be obtained by user button
                 /*
