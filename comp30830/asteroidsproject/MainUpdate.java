@@ -201,7 +201,7 @@ public class MainUpdate extends Application {
 *     Load bullets and asteroids in a LinkedList here
 * */
         List<Asteroid> asteroids = new LinkedList<>();
-        List<Bullet> bullets = new LinkedList<>();
+        List<Bullet> bulletsPlayer = new LinkedList<>();
         List<Bullet> bulletsAlien = new LinkedList<>();
         List<Alien> aliens = new LinkedList<>();
 
@@ -282,7 +282,7 @@ public class MainUpdate extends Application {
 
 
                 for (Asteroid asteroid : asteroids) {
-                    for (Bullet bullet : bullets) {
+                    for (Bullet bullet : bulletsPlayer) {
                         if(asteroid.strike(bullet)){
          
                             // start splitting
@@ -414,7 +414,7 @@ public class MainUpdate extends Application {
                	 asteroids.add(delasteroid);
                }
   
-                for (Bullet bullet : bullets) {
+                for (Bullet bullet : bulletsPlayer) {
                     if(bullet.leavingBounds(bounds)){
                         bullet.destroy(gBullets);
                     }else{
@@ -422,7 +422,7 @@ public class MainUpdate extends Application {
                     }
                 }
                 asteroids.removeIf(asteroid -> !asteroid.alive);
-                bullets.removeIf(bullet -> !bullet.alive);
+                bulletsPlayer.removeIf(bullet -> !bullet.alive);
                 
                 // ensure always generates 10 asteroids
                 while(asteroids.size()<asteroidCount){
@@ -440,8 +440,8 @@ public class MainUpdate extends Application {
                 	
                 }
                 if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
-                    PlayerBullets b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
-                    bullets.add(b);
+                    Bullet b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
+                    bulletsPlayer.add(b);
                     bulletTimer = bulletWaitTime;
                 }
                 bulletTimer -= delta;
@@ -469,7 +469,7 @@ public class MainUpdate extends Application {
                     }
 
                  while(bulletsAlien.size()<alienBCount&&AbulletTimer<=0){
-                        PlayerBullets b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
+                        Bullet b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
                         bulletsAlien.add(b);
 
                         AbulletTimer = AbulletWaitTime;
