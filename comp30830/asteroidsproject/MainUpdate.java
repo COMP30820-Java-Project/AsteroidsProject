@@ -189,7 +189,7 @@ public class MainUpdate extends Application {
       * */
       Group gAsteroids = new Group();
       Group gBullets = new Group();
-//      ¸Ä
+//      ï¿½ï¿½
       Group gAlien = new Group();
       gGame.getChildren().addAll(gAsteroids,gBullets,gAlien);
 
@@ -258,6 +258,9 @@ public class MainUpdate extends Application {
             @Override
             public void handle(long nanoTime) {
 
+                boolean shipHit = false;
+
+                //set lives text
                 livesTxt.setText("| LIVES: " + String.valueOf(ship.lives) + " | " );
 
                 if(oldTime<0){
@@ -312,13 +315,15 @@ public class MainUpdate extends Application {
 
                     	for (Bullet b:bulletsAlien) {
                             if (b.strike(ship)) {
-                             ship.setPosition(size.multiply(0.5));
+                                shipHit = true;
+                                ship.setPosition(size.multiply(0.5));
                                       ship.setVelocity(Point2D.ZERO);
                                       b.destroy(gBullets);
 
                             }
                            }
                            if(aliens.get(0).strike(ship)) {
+                               shipHit = true;
                             ship.setPosition(size.multiply(0.5));
                                   ship.setVelocity(Point2D.ZERO);
                                   aliens.get(0).destroy(gAlien);
@@ -328,8 +333,9 @@ public class MainUpdate extends Application {
 
 
                         if (asteroid.strike(ship)){
+                            shipHit = true;
 
-                        	//¼Ó´úÂë
+                        	//ï¿½Ó´ï¿½ï¿½ï¿½
 //                          ship.destroy(gGame);
                           ship.setPosition(size.multiply(0.5));;
                           ship.setVelocity(Point2D.ZERO);
@@ -353,25 +359,34 @@ public class MainUpdate extends Application {
                           delList.add(asteroid);
                           asteroid.destroy(gAsteroids);
 
-                            ship.lives -= 1;
-                            System.out.println(ship.lives);
-                            ship.handleInvincible();
-                            inGameEscTxt.getStyleClass().add("shipHit");
-                            inGameEscTxt.setText("|| SHIP HIT ||");
-                            shipHitTimer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    inGameEscTxt.getStyleClass().remove("shipHit");
-                                    inGameEscTxt.getStyleClass().add("inGameInfo");
-                                    inGameEscTxt.setText(" | ESC TO EXIT |");
-                                }
-                            }, 1000);
 
 
 
-                            break;
-                        }
+                          }
+
+
                     }
+
+                    if(shipHit){
+                        ship.lives -= 1;
+                        System.out.println(ship.lives);
+                        ship.handleInvincible();
+                        inGameEscTxt.getStyleClass().add("shipHit");
+                        inGameEscTxt.setText("|| SHIP HIT ||");
+                        shipHitTimer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                inGameEscTxt.getStyleClass().remove("shipHit");
+                                inGameEscTxt.getStyleClass().add("inGameInfo");
+                                inGameEscTxt.setText(" | ESC TO EXIT |");
+                            }
+                        }, 1000);
+
+
+
+                        break;
+                    }
+
 
                     if(ship.lives ==0){
                         gGame.getChildren().clear();
