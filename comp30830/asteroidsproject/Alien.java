@@ -68,9 +68,9 @@ public class Alien extends GameObjectUpload {
     }
 	
 	
-	  public PlayerBullets fireBullet(Group root,Point2D p0,Point2D v0,double angle) {
-		    PlayerBullets bullet = new PlayerBullets(root, p0, v0, angle);
-		         return bullet;
+	  public Bullet fireBullet(Group root,Point2D p0,Point2D v0,double angle) {
+		    Bullet bullet = new Bullet(root, p0, v0, angle);
+			return bullet;
 		  }
 	
 	

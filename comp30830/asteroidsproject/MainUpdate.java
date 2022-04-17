@@ -440,7 +440,7 @@ public class MainUpdate extends Application {
                 	
                 }
                 if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
-                    PlayerBullets b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
+                    Bullet b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
                     bullets.add(b);
                     bulletTimer = bulletWaitTime;
                 }
@@ -469,7 +469,7 @@ public class MainUpdate extends Application {
                     }
 
                  while(bulletsAlien.size()<alienBCount&&AbulletTimer<=0){
-                        PlayerBullets b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
+                        Bullet b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
                         bulletsAlien.add(b);
 
                         AbulletTimer = AbulletWaitTime;
