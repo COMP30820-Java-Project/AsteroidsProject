@@ -76,14 +76,35 @@ public class MainUpdate extends Application {
 
 
         //create content  for high score scene VBOX
+
+        // Read string array from external text file and create individual text objects
+        String[] highScoreLines = HighScores.readHighScores();
+        Text highScore1 = new Text(highScoreLines[0]);
+        Text highScore2 = new Text(highScoreLines[1]);
+        Text highScore3 = new Text(highScoreLines[2]);
+        Text highScore4 = new Text(highScoreLines[3]);
+        Text highScore5 = new Text(highScoreLines[4]);
         Text highScore = new Text("HIGH SCORE");
-        Text escText = new Text("PRESS ESC TO EXIT");
-        escText.getStyleClass().add("info");
+        Text escTextHighScore = new Text("PRESS ESC TO EXIT");
+
+        // Style each text element as title
+        escTextHighScore.getStyleClass().add("info");
         highScore.getStyleClass().add("info");
+        highScore1.getStyleClass().add("info");
+        highScore2.getStyleClass().add("info");
+        highScore3.getStyleClass().add("info");
+        highScore4.getStyleClass().add("info");
+        highScore5.getStyleClass().add("info");
 
 
         //Add content to vbox and create highScoreScene
-        VBox vboxHS = new VBox(highScore,escText);
+        VBox vboxHS = new VBox(highScore,
+                highScore1,
+                highScore2,
+                highScore3,
+                highScore4,
+                highScore5,
+                escTextHighScore);
         vboxHS.setSpacing(10.0);
         vboxHS.setAlignment(Pos.CENTER);
         Scene highScoreScene = new Scene(vboxHS,size.getX(), size.getY());
@@ -97,10 +118,12 @@ public class MainUpdate extends Application {
         rotateTxt.getStyleClass().add("info");
         Text hypeSpaceTxt = new Text("PRESS SPACEBAR TO HYPERSPACE JUMP");
         hypeSpaceTxt.getStyleClass().add("info");
+        Text escTextInstructions = new Text("PRESS ESC TO EXIT");
+        escTextInstructions.getStyleClass().add("info");
         //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
 
        //Insert content to a VBox object and create instructionScene
-        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escText);
+        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escTextInstructions);
         vboxInstruct.setSpacing(10.0);
         vboxInstruct.setAlignment(Pos.CENTER);
         Scene instructionScene = new Scene(vboxInstruct,size.getX(), size.getY());
@@ -253,7 +276,7 @@ public class MainUpdate extends Application {
                 List<Asteroid> delList = new LinkedList<>();
 
 
-            	
+
                 for (Asteroid asteroid : asteroids) {
                     for (Bullet bullet : bullets) {
                         if(asteroid.strike(bullet)){
@@ -285,13 +308,13 @@ public class MainUpdate extends Application {
                     }
 
                     if(!ship.invincible){
-                    	
+
                     	for (Bullet b:bulletsAlien) {
                             if (b.strike(ship)) {
                              ship.setPosition(size.multiply(0.5));
                                       ship.setVelocity(Point2D.ZERO);
                                       b.destroy(gBullets);
-                                      
+
                             }
                            }
                            if(aliens.get(0).strike(ship)) {
@@ -299,17 +322,17 @@ public class MainUpdate extends Application {
                                   ship.setVelocity(Point2D.ZERO);
                                   aliens.get(0).destroy(gAlien);
                                flagForA=true;
-                                  
+
                            }
 
-                    	
+
                         if (asteroid.strike(ship)){
 
                         	//¼Ó´úÂë
 //                          ship.destroy(gGame);
                           ship.setPosition(size.multiply(0.5));;
                           ship.setVelocity(Point2D.ZERO);
-                          
+
                        // start splitting
                           if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
                            level = 1;
@@ -322,13 +345,13 @@ public class MainUpdate extends Application {
                           }else {
                            level = 0;
                           }
-                          
+
                           // avoid concurrent error
                           addList.add(tempA);
                           addList.add(tempB);
                           delList.add(asteroid);
                           asteroid.destroy(gAsteroids);
-                        	
+
                             ship.lives -= 1;
                             System.out.println(ship.lives);
                             ship.handleInvincible();
@@ -410,7 +433,7 @@ public class MainUpdate extends Application {
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT))*1.5;
                 ship.update(delta,rot*-1,key(KeyCode.UP));
 
-                
+
                 if(flagForA) {
                  aliens.clear();
                 }
@@ -421,7 +444,7 @@ public class MainUpdate extends Application {
                 }
 //                for(Alien a:aliens) {
                  if(aliens.get(0).leavingBounds(bounds)){
-//                  System.out.println(aliens.get(0).leavingBounds(bounds)); 
+//                  System.out.println(aliens.get(0).leavingBounds(bounds));
                   aliens.get(0).destroy(gAlien);
 //                  aliens.remove(0);
                   flagForA=true;
@@ -432,30 +455,30 @@ public class MainUpdate extends Application {
                  while(bulletsAlien.size()<alienBCount&&AbulletTimer<=0){
                         PlayerBullets b = aliens.get(0).fireBullet(gBullets,aliens.get(0).position,aliens.get(0).velocity,aliens.get(0).radian+Math.random());
                         bulletsAlien.add(b);
-                        
+
                         AbulletTimer = AbulletWaitTime;
                     }
                  AbulletTimer -= delta;
-                 
+
 //                }
                 for (Bullet b : bulletsAlien) {
                     if(b.leavingBounds(bounds)){
                         b.destroy(gBullets);
                         bulletsAlien.remove(b);
-                        
+
                     }else{
                         b.update(delta);
                     }
                 }
-     
-                
-                
+
+
+
             }
-            
+
         };
 
-      
-        
+
+
         //When game started, set scene to mainMenu
         stage.setScene(mainMenu);
         stage.show();
