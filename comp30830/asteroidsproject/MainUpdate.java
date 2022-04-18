@@ -239,7 +239,6 @@ public class MainUpdate extends Application {
 
 
         AnimationTimer loop = new AnimationTimer(){
-
         	 double oldTime = -1;
              int asteroidCount = 8;
              int alienBCount = 15;
@@ -392,7 +391,7 @@ public class MainUpdate extends Application {
                     if(ship.lives == 0){
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
-                        HighScores.updateHighScores("test", 950);
+//                        HighScores.updateHighScores("test", 950);
                         stage.setScene(gameOverScene);
                     }
 
@@ -507,7 +506,6 @@ public class MainUpdate extends Application {
             loop.start();
             //set scene to game scene
             stage.setScene(scene);
-
             stage.show();
         });
 
@@ -531,10 +529,6 @@ public class MainUpdate extends Application {
                 }
             }
         });
-
-        if (stage.getScene() == gameOverScene) {
-            loop.stop();
-        }
 
         //press ESC to exit
         gameOverScene.setOnKeyPressed(new EventHandler<KeyEvent>() {

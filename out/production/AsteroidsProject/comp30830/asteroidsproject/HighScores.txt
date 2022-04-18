@@ -1,5 +1,5 @@
 Sarah - 1200
 Mick - 1050
 Bilbo - 1000
-Alice - 900
-Jane - 800
+test - 950
+Joe - 900
