@@ -51,16 +51,20 @@ public class HighScores {
         int loopIndex = 0;
         for (String highScore : highScores) {
             String[] highScoreSplit = highScore.split("-");
-            int highScoreValue = Integer.parseInt(highScoreSplit[0].trim());
+            int highScoreValue = Integer.parseInt(highScoreSplit[1].trim());
             highScoreValues[loopIndex] = highScoreValue;
 
-            String highScoreName = highScoreSplit[1].trim();
+            String highScoreName = highScoreSplit[0].trim();
             highScoreNames[loopIndex] = highScoreName;
             loopIndex++;
+
+            System.out.println("High score split has split the value" +
+                    highScoreName + " and " + highScoreValue);
         }
 
         highScoreValues[4] = score;
         int[] sortedHighScoreValues = BubbleSort.highScoreSort(highScoreValues);
+        System.out.println(Arrays.toString(sortedHighScoreValues));
         int indexOfScore = 0;
         for (int index = 0; index < sortedHighScoreValues.length; index++) {
             if (score == sortedHighScoreValues[index])
@@ -76,6 +80,7 @@ public class HighScores {
         for (int i = indexOfScore + 1; i < highScoreNamesAdjusted.length; i++) {
             highScoreNamesAdjusted[i] = highScoreNames[i - 1];
         }
+        System.out.println(Arrays.toString(highScoreNamesAdjusted));
 
         String highScoreStringForFile = "";
 

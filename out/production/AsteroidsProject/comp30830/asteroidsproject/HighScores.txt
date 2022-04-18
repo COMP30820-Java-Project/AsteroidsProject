@@ -1,5 +1,5 @@
-1000 - Jimmy
-900 - Mary
-500 - Jack
-500 - Jill
-300 - Ashley
+Jimmy - 1000
+Mary - 900
+test - 850
+Jack - 500
+Jill - 500

@@ -393,7 +393,7 @@ public class MainUpdate extends Application {
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
                         stage.setScene(gameOverScene);
-
+                        HighScores.updateHighScores("testHigh", 1500);
                     }
 
 
