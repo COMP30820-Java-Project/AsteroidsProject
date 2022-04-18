@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainUpdate extends Application {
 	
@@ -144,15 +145,8 @@ public class MainUpdate extends Application {
         Scene gameOverScene = new Scene(gOverVbox,size.getX(), size.getY());
         gameOverScene.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
 
-
-
-
-
-
-
-
         //create HBox to display in game information (added to gRoot)
-        Text scoreTxt = new Text("| SCORE: 100 |");
+        Text scoreTxt = new Text("| SCORE: 0 |");
         scoreTxt.getStyleClass().add("inGameInfo");
         Text livesTxt = new Text();
 
@@ -170,7 +164,8 @@ public class MainUpdate extends Application {
         tophbox.setAlignment(Pos.TOP_CENTER);
 
 
-
+        // Scoring system
+        AtomicInteger points = new AtomicInteger();
 
 
         Group gRoot = new Group();
@@ -290,12 +285,18 @@ public class MainUpdate extends Application {
                             	level = 1;
                             	tempA = asteroid.split(gAsteroids);
                             	tempB = asteroid.split(gAsteroids);
+                                // Add points to score
+                                scoreTxt.setText("| SCORE: " + points.addAndGet(10) + " |");
                             }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
                             	level = 2;
                             	tempA = asteroid.split(gAsteroids);
                             	tempB = asteroid.split(gAsteroids);
+                                // Add points to score
+                                scoreTxt.setText("| SCORE: " + points.addAndGet(20) + " |");
                             }else {
                             	level = 0;
+                                // Add points to score
+                                scoreTxt.setText("| SCORE: " + points.addAndGet(30) + " |");
                             }
                             
                             // avoid concurrent error
