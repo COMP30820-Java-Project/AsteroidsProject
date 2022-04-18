@@ -389,11 +389,11 @@ public class MainUpdate extends Application {
                     }
 
 
-                    if(ship.lives ==0){
+                    if(ship.lives == 0){
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
+                        HighScores.updateHighScores("test", 950);
                         stage.setScene(gameOverScene);
-                        HighScores.updateHighScores("testHigh", 1500);
                     }
 
 
@@ -531,6 +531,10 @@ public class MainUpdate extends Application {
                 }
             }
         });
+
+        if (stage.getScene() == gameOverScene) {
+            loop.stop();
+        }
 
         //press ESC to exit
         gameOverScene.setOnKeyPressed(new EventHandler<KeyEvent>() {

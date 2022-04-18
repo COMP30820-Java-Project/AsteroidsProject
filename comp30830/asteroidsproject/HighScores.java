@@ -48,15 +48,13 @@ public class HighScores {
 
         int[] highScoreValues = new int[5];
         String[] highScoreNames = new String[5];
-        int loopIndex = 0;
-        for (String highScore : highScores) {
-            String[] highScoreSplit = highScore.split("-");
+        for (int i = 0; i < highScores.length; i++) {
+            String[] highScoreSplit = highScores[i].split("-");
             int highScoreValue = Integer.parseInt(highScoreSplit[1].trim());
-            highScoreValues[loopIndex] = highScoreValue;
+            highScoreValues[i] = highScoreValue;
 
             String highScoreName = highScoreSplit[0].trim();
-            highScoreNames[loopIndex] = highScoreName;
-            loopIndex++;
+            highScoreNames[i] = highScoreName;
 
             System.out.println("High score split has split the value" +
                     highScoreName + " and " + highScoreValue);
@@ -71,6 +69,7 @@ public class HighScores {
                 indexOfScore += index;
         }
 
+        System.out.println(indexOfScore + " is the index of the new high score");
         String[] highScoreNamesAdjusted = new String[5];
         for (int nameIndex = 0; nameIndex < highScoreNames.length; nameIndex++) {
             highScoreNamesAdjusted[nameIndex] = highScoreNames[nameIndex];

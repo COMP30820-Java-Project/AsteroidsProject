@@ -1,5 +1,5 @@
-testHigh - 1500
-testHigh - 1500
-Jimmy - 1500
-testHigh - 1000
-Mary - 900
+Sarah - 1200
+Mick - 1050
+Bilbo - 1000
+test - 950
+Alice - 900

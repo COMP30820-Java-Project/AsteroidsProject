@@ -1,5 +1,5 @@
-Jimmy - 1000
-Mary - 900
-test - 850
-Jack - 500
-Jill - 500
+Sarah - 1200
+Mick - 1050
+Bilbo - 1000
+Alice - 900
+Jane - 800
