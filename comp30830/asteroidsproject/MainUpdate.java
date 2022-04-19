@@ -138,7 +138,7 @@ public class MainUpdate extends Application {
         Text gameOverTxt = new Text("GAME OVER");
         Text newHighScoreTxt = new Text();
         Text escTextGameOver = new Text("PRESS ESC TO EXIT");
-        gameOverTxt.getStyleClass().add("gameOver");
+        gameOverTxt.getStyleClass().add("Title");
         newHighScoreTxt.getStyleClass().add("info");
 
         //Insert content to HBOx object and create game over scene
@@ -165,6 +165,8 @@ public class MainUpdate extends Application {
         tophbox.getStylesheets().add("comp30830/asteroidsproject/MainMenu.css");
         tophbox.setSpacing(50.0);
         tophbox.setAlignment(Pos.TOP_CENTER);
+
+        Timer levelTimer = new Timer();
 
 
         // Scoring system
@@ -272,10 +274,31 @@ public class MainUpdate extends Application {
 
 
             	
-            	if(points.get()-100*countLevel>100) {
+            	if(points.get()-500*countLevel>500) {
             		countLevel++;
             		gameLevel++;
             		ship.lives+=1;
+                    scoreTxt.getStyleClass().remove("inGameInfo");
+
+                    scoreTxt.getStyleClass().add("notification");
+                    scoreTxt.setText("LEVEL " + String.valueOf(gameLevel) + " !!! NEW LIFE ADDED");
+
+
+                    levelTimer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+
+                            scoreTxt.getStyleClass().remove("notification");
+                            scoreTxt.getStyleClass().add("inGameInfo");
+                            scoreTxt.setText("| SCORE: " + points.addAndGet(0) + " |");
+
+
+
+
+
+                        }
+                    }, 3000);
             	}
             	levelSpeed=1+gameLevel*0.1;
             	System.out.println(levelSpeed);
@@ -454,8 +477,13 @@ public class MainUpdate extends Application {
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
                         int lowestHighScore = HighScores.getLowestHighScore();
-                        if (points.get() > lowestHighScore)
+                        if (points.get() > lowestHighScore){
                             HighScores.updateHighScores(points.get());
+                            newHighScoreTxt.setText(String.valueOf(points.get()) + "-- NEW HIGH SCORE !!");
+
+
+                        }
+
                         stage.setScene(gameOverScene);
                         ship.lives--;
                     }
