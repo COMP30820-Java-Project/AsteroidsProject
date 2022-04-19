@@ -564,6 +564,7 @@ public class MainUpdate extends Application {
         stage.setScene(mainMenu);
         stage.show();
 
+        // Set Esc to exit game
         mainMenu.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {

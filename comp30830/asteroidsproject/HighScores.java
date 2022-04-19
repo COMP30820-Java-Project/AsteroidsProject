@@ -10,8 +10,11 @@ import java.util.Scanner;
 
 public class HighScores {
 
+    // Static method to read high scores from file
     static String[] readHighScores() {
         String[] highScores = new String[5];
+
+        // Try catch block to read high scores into string array line by line
         try {
             File highScoreFile = new File("comp30830/asteroidsproject/HighScores.txt");
             Scanner fileReader = new Scanner(highScoreFile);
@@ -26,11 +29,16 @@ public class HighScores {
             System.out.println("High Score file not found when reading for high score menu");
             e.printStackTrace();
         }
+
+        // Return String array
         return highScores;
     }
 
+    // Static method called to update high score file with the argument value
     static void updateHighScores(int score) {
         String[] highScores = new String[5];
+
+        // Try catch block reads high score file content into string array
         try {
             File highScoreFile = new File("comp30830/asteroidsproject/HighScores.txt");
             Scanner fileReader = new Scanner(highScoreFile);
@@ -46,15 +54,18 @@ public class HighScores {
             e.printStackTrace();
         }
 
+        // Int array created to compare high score values
         int[] highScoreValues = new int[5];
         for (int i = 0; i < highScores.length; i++) {
             highScoreValues[i] = Integer.parseInt(highScores[i]);
         }
 
+        // Lowest high score removed and values sorted in descending order
         highScoreValues[4] = score;
         int[] sortedHighScoreValues = BubbleSort.highScoreSort(highScoreValues);
 
-
+        // Create string to write to file and concatenate each int to this file with
+        // system-independent file separator
         String highScoreStringForFile = "";
 
         for (int i = 0; i < highScores.length; i++) {
@@ -65,6 +76,7 @@ public class HighScores {
             highScoreStringForFile += line;
         }
 
+        // Try catch block to write string to file
         try {
             FileWriter fileWriter = new FileWriter("comp30830/asteroidsproject/HighScores.txt", false);
             fileWriter.write(highScoreStringForFile);
@@ -78,7 +90,12 @@ public class HighScores {
 
     static int getLowestHighScore() {
 
+        // Static method to return the lowest high score value. Used to determine
+        // when to update high scores
+
         String[] highScores = new String[5];
+
+        // Try catch block to read contents of high score file
         try {
             File highScoreFile = new File("comp30830/asteroidsproject/HighScores.txt");
             Scanner fileReader = new Scanner(highScoreFile);
@@ -94,6 +111,7 @@ public class HighScores {
             e.printStackTrace();
         }
 
+        // Return smallest value as an integer
         return Integer.parseInt(highScores[4]);
     }
 }
