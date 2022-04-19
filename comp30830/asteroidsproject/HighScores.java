@@ -29,7 +29,7 @@ public class HighScores {
         return highScores;
     }
 
-    static void updateHighScores(String name, int score) {
+    static void updateHighScores(int score) {
         String[] highScores = new String[5];
         try {
             File highScoreFile = new File("comp30830/asteroidsproject/HighScores.txt");
@@ -47,45 +47,18 @@ public class HighScores {
         }
 
         int[] highScoreValues = new int[5];
-        String[] highScoreNames = new String[5];
         for (int i = 0; i < highScores.length; i++) {
-            String[] highScoreSplit = highScores[i].split("-");
-            int highScoreValue = Integer.parseInt(highScoreSplit[1].trim());
-            highScoreValues[i] = highScoreValue;
-
-            String highScoreName = highScoreSplit[0].trim();
-            highScoreNames[i] = highScoreName;
-
-            System.out.println("High score split has split the value" +
-                    highScoreName + " and " + highScoreValue);
+            highScoreValues[i] = Integer.parseInt(highScores[i]);
         }
 
         highScoreValues[4] = score;
         int[] sortedHighScoreValues = BubbleSort.highScoreSort(highScoreValues);
-        System.out.println(Arrays.toString(sortedHighScoreValues));
-        int indexOfScore = 0;
-        for (int index = 0; index < sortedHighScoreValues.length; index++) {
-            if (score == sortedHighScoreValues[index])
-                indexOfScore += index;
-        }
 
-        System.out.println(indexOfScore + " is the index of the new high score");
-        String[] highScoreNamesAdjusted = new String[5];
-        for (int nameIndex = 0; nameIndex < highScoreNames.length; nameIndex++) {
-            highScoreNamesAdjusted[nameIndex] = highScoreNames[nameIndex];
-        }
-
-        highScoreNamesAdjusted[indexOfScore] = name;
-        for (int i = indexOfScore + 1; i < highScoreNamesAdjusted.length; i++) {
-            highScoreNamesAdjusted[i] = highScoreNames[i - 1];
-        }
-        System.out.println(Arrays.toString(highScoreNamesAdjusted));
 
         String highScoreStringForFile = "";
 
         for (int i = 0; i < highScores.length; i++) {
-            highScores[i] = highScoreNamesAdjusted[i] + " - " +
-                    sortedHighScoreValues[i] + System.lineSeparator();
+            highScores[i] = Integer.toString(sortedHighScoreValues[i]) + System.lineSeparator();
         }
 
         for (String line : highScores) {
