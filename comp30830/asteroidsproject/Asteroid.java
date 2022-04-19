@@ -7,7 +7,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
 enum AsteroidSize{Large,Medium,Small};
-public class Asteroid extends GameObjectUpload {
+public class Asteroid extends GameObject {
 
     Polygon pg;
     private AsteroidSize sizetype;

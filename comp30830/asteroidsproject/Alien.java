@@ -9,7 +9,7 @@ import javafx.scene.transform.Scale;
 
 import comp30830.asteroidsproject.Bullet.Type;
 
-public class Alien extends GameObjectUpload {
+public class Alien extends GameObject {
 	Polygon pg;
 	double acceleration = 150;
 	protected static double muzzleA = 500;

@@ -6,9 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
-import static comp30830.asteroidsproject.Bullet.Type.PLAYER;
-
-class Bullet extends GameObjectUpload {
+class Bullet extends GameObject {
 
     public enum Type {
         PLAYER,
