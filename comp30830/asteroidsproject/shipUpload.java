@@ -1,16 +1,16 @@
 package comp30830.asteroidsproject;
 
 
+import comp30830.asteroidsproject.Bullet.Type;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Scale;
+
 import java.util.Timer;
 import java.util.TimerTask;
-
-import comp30830.asteroidsproject.Bullet.Type;
 
 public class shipUpload extends GameObjectUpload {
     public static boolean invincible;
@@ -95,6 +95,7 @@ public class shipUpload extends GameObjectUpload {
         invincibilityTimer.schedule(new TimerTask() {
             @Override
             public void run() {
+                System.out.println("Handle X");
                 shipUpload.setInvincible(false);
             }
         }, 2000);

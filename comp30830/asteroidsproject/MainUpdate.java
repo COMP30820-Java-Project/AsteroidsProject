@@ -43,9 +43,12 @@ public class MainUpdate extends Application {
     }
 
     boolean restartScheduled;
+    int gameLevel = 0;
 
     @Override
     public void start(Stage stage){
+
+
         restartScheduled = true;
         long animationStart;
 
@@ -251,6 +254,17 @@ public class MainUpdate extends Application {
 
             @Override
             public void handle(long nanoTime) {
+
+                Random r = new Random();
+                double random_X = 0 + (800 - 0) * r.nextDouble();
+
+                double random_Y = 0 + (600 - 0) * r.nextDouble();
+
+                Point2D randomPosition = new Point2D(random_X,random_Y);
+
+
+
+
 
                 boolean shipHit = false;
 
@@ -467,12 +481,17 @@ public class MainUpdate extends Application {
                 	}
                 	
                 }
-                if(key(KeyCode.SPACE)==1&&bulletTimer<=0){
+                if(key(KeyCode.C) ==1){
+                    ship.setPosition(randomPosition);
+                    ship.handleInvincible();
+                }
+                bulletTimer -= delta;
+
+                if(key(KeyCode.SPACE) ==1 && bulletTimer <= 0){
                     Bullet b = ship.fireBullet(gBullets,ship.position,ship.velocity,ship.radian);
                     bulletsPlayer.add(b);
                     bulletTimer = bulletWaitTime;
                 }
-                bulletTimer -= delta;
 
                 double rot = (key(KeyCode.LEFT)-key(KeyCode.RIGHT))*1.5;
                 ship.update(delta,rot*-1,key(KeyCode.UP));
@@ -514,6 +533,9 @@ public class MainUpdate extends Application {
                         b.update(delta);
                     }
                 }
+
+
+
 
 
 
