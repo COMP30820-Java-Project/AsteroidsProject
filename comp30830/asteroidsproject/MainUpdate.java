@@ -91,7 +91,7 @@ public class MainUpdate extends Application {
         Text highScore = new Text("HIGH SCORE");
         Text escTextHighScore = new Text("PRESS ESC TO EXIT");
 
-        // Style each text element as title
+        // Style each text element as info
         escTextHighScore.getStyleClass().add("info");
         highScore.getStyleClass().add("info");
         highScore1.getStyleClass().add("info");
@@ -340,6 +340,8 @@ public class MainUpdate extends Application {
                            }
                     }
 
+                    // Check for ship invincibility condition before registering
+                    // ship collisions
                     if(!ship.invincible){
 
                     	for (Bullet b:bulletsAlien) {
@@ -420,6 +422,9 @@ public class MainUpdate extends Application {
 
                     }
 
+                    // Display that the ship has been hit and a life lost following a
+                    // collision
+                    // Make ship temporary invincible
                     if(shipHit){
                     	
                         ship.lives -= 1;
@@ -441,7 +446,10 @@ public class MainUpdate extends Application {
                         break;
                     }
 
-
+                    // Once lives run out, clear out objects and check for high score
+                    // Game over screen displayed and lives immediately decremented again
+                    // Loop frames still continue so stops game trying to keep update
+                    // the high score indefinitely
                     if(ship.lives == 0){
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
@@ -496,6 +504,9 @@ public class MainUpdate extends Application {
                 	}
                 	
                 }
+
+                // Key stroke handle to work hyperspace jump
+                // Ship made invincible as per respawn to handle collision
                 if(key(KeyCode.C) ==1){
                     ship.setPosition(randomPosition);
                     ship.handleInvincible();
