@@ -392,8 +392,8 @@ public class MainUpdate extends Application {
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
                         int lowestHighScore = HighScores.getLowestHighScore();
-                        if (600 > lowestHighScore)
-                            HighScores.updateHighScores(600);
+                        if (points.get() > lowestHighScore)
+                            HighScores.updateHighScores(points.get());
                         stage.setScene(gameOverScene);
                         ship.lives--;
                     }
@@ -501,6 +501,17 @@ public class MainUpdate extends Application {
         //When game started, set scene to mainMenu
         stage.setScene(mainMenu);
         stage.show();
+
+        mainMenu.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                KeyCode key = t.getCode();
+
+                if (key == KeyCode.ESCAPE){
+                    System.exit(0);
+                }
+            }
+        });
 
         //add event listeners to navigate through menu/highscores/insrauctions/game
         playBtn.setOnAction(actionEvent ->  {
