@@ -47,3 +47,10 @@
 .shipHit{
 -fx-font-family: 'Rubik Wet Paint', cursive;
 }
+
+.notification{
+-fx-font-weight: bold;
+-fx-fill: white;
+-fx-font-size: 40px;
+-fx-font-family: 'Genos', sans-serif;
+}
