@@ -321,6 +321,31 @@ public class MainUpdate extends Application {
                                       b.destroy(gBullets);
 
                             }
+
+                            if(asteroid.strike(b)){
+
+                                // start splitting
+                                if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
+                                    level = 1;
+                                    tempA = asteroid.split(gAsteroids);
+                                    tempB = asteroid.split(gAsteroids);
+
+                                }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
+                                    level = 2;
+                                    tempA = asteroid.split(gAsteroids);
+                                    tempB = asteroid.split(gAsteroids);
+
+                                }else {
+                                    level = 0;
+                                }
+
+                                // avoid concurrent error
+                                addList.add(tempA);
+                                addList.add(tempB);
+                                delList.add(asteroid);
+                                asteroid.destroy(gAsteroids);
+                                b.destroy(gBullets);
+                            }
                            }
                            if(aliens.get(0).strike(ship)) {
                                shipHit = true;
