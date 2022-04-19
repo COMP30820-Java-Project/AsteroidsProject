@@ -259,7 +259,6 @@ public class MainUpdate extends Application {
 
             @Override
             public void handle(long nanoTime) {
-<<<<<<< Updated upstream
 
                 Random r = new Random();
                 double random_X = 0 + (800 - 0) * r.nextDouble();
@@ -272,7 +271,6 @@ public class MainUpdate extends Application {
 
 
 
-=======
             	
             	if(points.get()-100*countLevel>100) {
             		countLevel++;
@@ -282,7 +280,7 @@ public class MainUpdate extends Application {
             	levelSpeed=1+gameLevel*0.1;
             	System.out.println(levelSpeed);
 //            	System.out.println(score);
->>>>>>> Stashed changes
+
                 boolean shipHit = false;
 
                 //set lives text
@@ -358,13 +356,13 @@ public class MainUpdate extends Application {
                                 // start splitting
                                 if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
                                     level = 1;
-                                    tempA = asteroid.split(gAsteroids);
-                                    tempB = asteroid.split(gAsteroids);
+                                    tempA = asteroid.split(gAsteroids,levelSpeed);
+                                    tempB = asteroid.split(gAsteroids,levelSpeed);
 
                                 }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
                                     level = 2;
-                                    tempA = asteroid.split(gAsteroids);
-                                    tempB = asteroid.split(gAsteroids);
+                                    tempA = asteroid.split(gAsteroids,levelSpeed);
+                                    tempB = asteroid.split(gAsteroids,levelSpeed);
 
                                 }else {
                                     level = 0;
