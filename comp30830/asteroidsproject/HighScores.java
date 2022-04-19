@@ -73,5 +73,27 @@ public class HighScores {
             System.out.println("An error occurred writing to the high score file");
             e.printStackTrace();
         }
+
+    }
+
+    static int getLowestHighScore() {
+
+        String[] highScores = new String[5];
+        try {
+            File highScoreFile = new File("comp30830/asteroidsproject/HighScores.txt");
+            Scanner fileReader = new Scanner(highScoreFile);
+            int lineCount = 0;
+            while (fileReader.hasNextLine()) {
+                String line = fileReader.nextLine();
+                highScores[lineCount] = line;
+                lineCount++;
+            }
+            fileReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("High Score file not found when reading for high score menu");
+            e.printStackTrace();
+        }
+
+        return Integer.parseInt(highScores[4]);
     }
 }

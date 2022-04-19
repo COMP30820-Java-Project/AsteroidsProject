@@ -391,7 +391,9 @@ public class MainUpdate extends Application {
                     if(ship.lives == 0){
                         gGame.getChildren().clear();
                         gRoot.getChildren().clear();
-                        HighScores.updateHighScores(1100);
+                        int lowestHighScore = HighScores.getLowestHighScore();
+                        if (600 > lowestHighScore)
+                            HighScores.updateHighScores(600);
                         stage.setScene(gameOverScene);
                         ship.lives--;
                     }
