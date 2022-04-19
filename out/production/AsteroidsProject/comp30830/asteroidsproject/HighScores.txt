@@ -1,5 +1,13 @@
+<<<<<<< Updated upstream
 1200
 1100
 1050
 1000
 550
+=======
+Sarah - 1200
+Mick - 1050
+Bilbo - 1000
+Ivan - 950
+Joanne - 900
+>>>>>>> Stashed changes

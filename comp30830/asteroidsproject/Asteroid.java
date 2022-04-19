@@ -52,7 +52,7 @@ public class Asteroid extends GameObjectUpload {
     }
 
     
-    static Asteroid make(Group parent,Point2D size, AsteroidSize type, boolean splitting){
+    static Asteroid make(Group parent,Point2D size, AsteroidSize type, boolean splitting,double s){
         double angle = Math.random()*Math.PI*2;
         double radius = rand(20,30);
         double omega = rand(-2,2);
@@ -68,11 +68,11 @@ public class Asteroid extends GameObjectUpload {
         }
         
         if (type == AsteroidSize.Large) {
-        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(30,50));
+        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(30,50)*s);
         }else if(type == AsteroidSize.Medium) {
-        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(50,80));
+        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(50,80)*s);
         }else if(type == AsteroidSize.Small) {
-        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(80,100));
+        	v = FindAngleDirection(Math.PI+angle+rand(-0.2,0.2),rand(80,100)*s);
         }
         return new Asteroid(parent,radius,p,v,omega,type);
     }
@@ -91,17 +91,17 @@ public class Asteroid extends GameObjectUpload {
     
     
     //asteroid splits
-    public Asteroid split(Group mygroup) {
+    public Asteroid split(Group mygroup,double s) {
     	Point2D p= this.getPosition();
     	AsteroidSize spawn = this.getAsteroidSize();
     	//System.out.println(spawn);
     	Asteroid tempA = null;
     	
     	if (spawn == AsteroidSize.Large) {
-    		tempA = Asteroid.make(mygroup, p, AsteroidSize.Medium,true);
+    		tempA = Asteroid.make(mygroup, p, AsteroidSize.Medium,true,s);
 	
     	}else if (spawn == AsteroidSize.Medium) {
-    		tempA = Asteroid.make(mygroup, p, AsteroidSize.Small,true);
+    		tempA = Asteroid.make(mygroup, p, AsteroidSize.Small,true,s);
     		
     	}
 		return tempA;

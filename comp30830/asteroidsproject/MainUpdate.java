@@ -187,7 +187,7 @@ public class MainUpdate extends Application {
       * */
       Group gAsteroids = new Group();
       Group gBullets = new Group();
-//      ��
+
       Group gAlien = new Group();
       gGame.getChildren().addAll(gAsteroids,gBullets,gAlien);
 
@@ -250,10 +250,16 @@ public class MainUpdate extends Application {
              double AbulletTimer = 0;
              double AbulletWaitTime = 1;
              boolean flagForA = false;
+//             int score=0;
+             int gameLevel=0;
+             double levelSpeed;
+             int countLevel=0;
+             
 
 
             @Override
             public void handle(long nanoTime) {
+<<<<<<< Updated upstream
 
                 Random r = new Random();
                 double random_X = 0 + (800 - 0) * r.nextDouble();
@@ -266,6 +272,17 @@ public class MainUpdate extends Application {
 
 
 
+=======
+            	
+            	if(points.get()-100*countLevel>100) {
+            		countLevel++;
+            		gameLevel++;
+            		ship.lives+=1;
+            	}
+            	levelSpeed=1+gameLevel*0.1;
+            	System.out.println(levelSpeed);
+//            	System.out.println(score);
+>>>>>>> Stashed changes
                 boolean shipHit = false;
 
                 //set lives text
@@ -296,14 +313,14 @@ public class MainUpdate extends Application {
                             // start splitting
                             if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
                             	level = 1;
-                            	tempA = asteroid.split(gAsteroids);
-                            	tempB = asteroid.split(gAsteroids);
+                            	tempA = asteroid.split(gAsteroids,levelSpeed);
+                            	tempB = asteroid.split(gAsteroids,levelSpeed);
                                 // Add points to score
                                 scoreTxt.setText("| SCORE: " + points.addAndGet(10) + " |");
                             }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
                             	level = 2;
-                            	tempA = asteroid.split(gAsteroids);
-                            	tempB = asteroid.split(gAsteroids);
+                            	tempA = asteroid.split(gAsteroids,levelSpeed);
+                            	tempB = asteroid.split(gAsteroids,levelSpeed);
                                 // Add points to score
                                 scoreTxt.setText("| SCORE: " + points.addAndGet(20) + " |");
                             }else {
@@ -374,7 +391,6 @@ public class MainUpdate extends Application {
                         if (asteroid.strike(ship)){
                             shipHit = true;
 
-                        	//�Ӵ���
 //                          ship.destroy(gGame);
                           ship.setPosition(size.multiply(0.5));;
                           ship.setVelocity(Point2D.ZERO);
@@ -382,12 +398,12 @@ public class MainUpdate extends Application {
                        // start splitting
                           if (asteroid.getAsteroidSize()==AsteroidSize.Large) {
                            level = 1;
-                           tempA = asteroid.split(gAsteroids);
-                           tempB = asteroid.split(gAsteroids);
+                           tempA = asteroid.split(gAsteroids,levelSpeed);
+                           tempB = asteroid.split(gAsteroids,levelSpeed);
                           }else if(asteroid.getAsteroidSize()==AsteroidSize.Medium) {
                            level = 2;
-                           tempA = asteroid.split(gAsteroids);
-                           tempB = asteroid.split(gAsteroids);
+                           tempA = asteroid.split(gAsteroids,levelSpeed);
+                           tempB = asteroid.split(gAsteroids,levelSpeed);
                           }else {
                            level = 0;
                           }
@@ -407,6 +423,7 @@ public class MainUpdate extends Application {
                     }
 
                     if(shipHit){
+                    	
                         ship.lives -= 1;
                         System.out.println(ship.lives);
                         ship.handleInvincible();
@@ -469,15 +486,15 @@ public class MainUpdate extends Application {
                 // ensure always generates 10 asteroids
                 while(asteroids.size()<asteroidCount){
                 	if (level==0) {
-                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false,levelSpeed));
                 	}else if(level==1) {
-                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false));
-                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false,levelSpeed));
+                        asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false,levelSpeed));
                         
                 	}else if (level==2) {
-                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Small, false)); 
-                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false));
-                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false));
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Small, false,levelSpeed)); 
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Large, false,levelSpeed));
+                       asteroids.add(Asteroid.make(gAsteroids,size, AsteroidSize.Medium, false,levelSpeed));
                 	}
                 	
                 }
