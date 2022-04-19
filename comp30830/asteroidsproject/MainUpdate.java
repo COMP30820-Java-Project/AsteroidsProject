@@ -120,14 +120,14 @@ public class MainUpdate extends Application {
         shootTxt.getStyleClass().add("info");
         Text rotateTxt = new Text("USE ARROWS KEYS TO ROTATE");
         rotateTxt.getStyleClass().add("info");
-        Text bulletTxt = new Text("PRESS SPACEBAR TO SHOOT");
-        bulletTxt.getStyleClass().add("info");
+        Text hypeSpaceTxt = new Text("PRESS C TO JUMP TO HYPERSPACE");
+        hypeSpaceTxt.getStyleClass().add("info");
         Text escTextInstructions = new Text("PRESS ESC TO EXIT");
         escTextInstructions.getStyleClass().add("info");
         //Font.loadFont(Title.class.getResource("TRON.TTF").toExternalForm(), 10);
 
        //Insert content to a VBox object and create instructionScene
-        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,bulletTxt,escTextInstructions);
+        VBox vboxInstruct = new VBox(shootTxt,rotateTxt,hypeSpaceTxt,escTextInstructions);
         vboxInstruct.setSpacing(10.0);
         vboxInstruct.setAlignment(Pos.CENTER);
         Scene instructionScene = new Scene(vboxInstruct,size.getX(), size.getY());
